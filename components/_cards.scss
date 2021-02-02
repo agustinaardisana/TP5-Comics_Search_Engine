@@ -1,0 +1,45 @@
+.card--container {
+  &__comic,
+  &__character {
+    @extend %flex-column;
+    width: 175px;
+    transform: translateY(0);
+    transition: 0.3s;
+    &:hover {
+      transform: translateY(-10px);
+      cursor: pointer;
+      .img {
+        &__comic,
+        &__character {
+          opacity: 0.3;
+        }
+      }
+      .title {
+        &__comic,
+        &__character {
+          transform: translateY(-70px);
+        }
+      }
+    }
+  }
+}
+
+.img {
+  &__comic,
+  &__character {
+    width: 100%;
+    height: auto;
+    // box-shadow: 1px 2px 3px #3f344d;
+  }
+}
+
+.title {
+  &__comic,
+  &__character {
+    transform: translateY(0);
+    transition: 0.3s;
+    // &:hover {
+    //   transform: translateY(-40px);
+    // }
+  }
+}

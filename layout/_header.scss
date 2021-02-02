@@ -1,4 +1,10 @@
+header {
+  height: 400px;
+}
+
 .banner {
   background-image: url(imgs/cover-magenta.png);
   background-size: cover;
+  background-position: center;
+  height: 100%;
 }

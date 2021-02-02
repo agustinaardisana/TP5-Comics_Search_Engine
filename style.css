@@ -1,7 +1,54 @@
 @import url("https://fonts.googleapis.com/css2?family=Karla&family=Rubik&display=swap");
 /*Tmb puedo usar #E9C22B y #753E58 si fuera necesario*/
+* {
+  margin: 0;
+}
+
+.card--container__comic, .card--container__character {
+  display: flex;
+  flex-direction: column;
+}
+
+section {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card--container__comic, .card--container__character {
+  width: 175px;
+  transform: translateY(0);
+  transition: 0.3s;
+}
+.card--container__comic:hover, .card--container__character:hover {
+  transform: translateY(-10px);
+  cursor: pointer;
+}
+.card--container__comic:hover .img__comic, .card--container__comic:hover .img__character, .card--container__character:hover .img__comic, .card--container__character:hover .img__character {
+  opacity: 0.3;
+}
+.card--container__comic:hover .title__comic, .card--container__comic:hover .title__character, .card--container__character:hover .title__comic, .card--container__character:hover .title__character {
+  transform: translateY(-70px);
+}
+
+.img__comic, .img__character {
+  width: 100%;
+  height: auto;
+}
+
+.title__comic, .title__character {
+  transform: translateY(0);
+  transition: 0.3s;
+}
+
+header {
+  height: 400px;
+}
+
 .banner {
   background-image: url(imgs/cover-magenta.png);
+  background-size: cover;
+  background-position: center;
+  height: 100%;
 }
 
 /*# sourceMappingURL=style.css.map */
