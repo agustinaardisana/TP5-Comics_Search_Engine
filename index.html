@@ -5,33 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ADA Comics</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/ico" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+    />
   </head>
   <body>
     <header>
       <div class="banner"></div>
     </header>
     <main>
-      <section class="section-comics">
-        <!-- <article class="card--container__comic">
-          <div class="img--container__comic">
-            <img class="img__comic" src="imgs/AVENGERS-HAWKEYE-NEEDLE.png" />
-          </div>
-          <h3 class="title__comic">
-            Superior Spider-Man Vol. 2: Otto-matic (Trade Paperback)
-          </h3>
-        </article> -->
-      </section>
+      <form class="form--container__search">
+        <h2 class="title__search">Búsqueda</h2>
+        <div class="search--container__input">
+          <label for="input__search" aria-label="Buscar">
+            <i class="fas fa-search" aria-hidden="true"></i>
+            <input
+              type="text"
+              id="input__search"
+              placeholder="Ingresá tu búsqueda"
+              aria-labelledby="title__search"
+            />
+          </label>
+        </div>
+        <div class="search--container__filters">
+          <label for="type__filter" aria-label="Filtrar por tipo">
+            TIPO
+            <select id="type__filter" name="type__filter">
+              <option value="comics">COMICS</option>
+              <option value="characters">PERSONAJES</option>
+            </select>
+          </label>
 
-      <section class="section-characters">
-        <article class="card--container__character">
-          <div class="img--container__character">
-            <img class="img__character" src="imgs/AVENGERS-FALCON-NEEDLE.png" />
-          </div>
-          <div class="title--container__character">
-            <h3 class="title__character">3-D Man</h3>
-          </div>
-        </article>
-      </section>
+          <label for="sortby__filter" aria-label="Ordenar">
+            ORDEN
+            <select id="sortby__filter" name="sortby__filter">
+              <option value="title">A-Z</option>
+              <option value="-title">Z-A</option>
+              <option value="focDate">Más Nuevos</option>
+              <option value="-focDate">Más Viejos</option>
+            </select>
+          </label>
+        </div>
+
+        <button type="button" class="search__button">BUSCAR</button>
+      </form>
+
+      <section class="section-comics"></section>
+
+      <section class="section-characters"></section>
     </main>
     <footer></footer>
     <script src="main.js"></script>

@@ -2,6 +2,7 @@
   &__comic,
   &__character {
     @extend %flex-column;
+    @include margin(0, 10px, 40px, 10px);
     width: 175px;
     transform: translateY(0);
     transition: 0.3s;
