@@ -8,6 +8,12 @@
   flex-wrap: wrap;
 }
 
+%flex-space-between {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
 @mixin padding($top, $right, $bottom, $left) {
   padding: $top $right $bottom $left;
 }
