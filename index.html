@@ -18,39 +18,45 @@
     <main>
       <section class="section-search">
         <h2 class="title__search">Búsqueda</h2>
-        <div class="search--container__input">
-          <label for="input__search" aria-label="Buscar">
-            <i class="fas fa-search" aria-hidden="true"></i>
-            <input
-              type="text"
-              id="input__search"
-              placeholder="Ingresá tu búsqueda"
-              aria-labelledby="title__search"
-            />
-          </label>
-        </div>
-        <div class="search--container__filters">
-          <label for="type__filter" aria-label="Filtrar por tipo">
-            TIPO
-            <select id="type__filter" name="type__filter">
-              <option value="comics">COMICS</option>
-              <option value="characters">PERSONAJES</option>
-            </select>
-          </label>
+        <div class="search--container">
+          <div class="search--container__input">
+            <label for="input__search" aria-label="Buscar">
+              <i class="fas fa-search" aria-hidden="true"></i>
+              <input
+                type="text"
+                id="input__search"
+                placeholder="Ingresá tu búsqueda"
+                aria-labelledby="title__search"
+              />
+            </label>
+          </div>
+          <div class="search--container__filters">
+            <label for="type__filter" aria-label="Filtrar por tipo">
+              TIPO
+              <select id="type__filter" name="type__filter">
+                <option value="comics">COMICS</option>
+                <option value="characters">PERSONAJES</option>
+              </select>
+            </label>
 
-          <label for="sortby__filter" aria-label="Ordenar">
-            ORDEN
-            <select id="sortby__filter" name="sortby__filter">
-              <option value="title">A-Z</option>
-              <option value="-title">Z-A</option>
-              <option value="focDate">Más Nuevos</option>
-              <option value="-focDate">Más Viejos</option>
-            </select>
-          </label>
-        </div>
+            <label for="sortby__filter" aria-label="Ordenar">
+              ORDEN
+              <select id="sortby__filter" name="sortby__filter">
+                <option value="title">A-Z</option>
+                <option value="-title">Z-A</option>
+                <option value="focDate">Más Nuevos</option>
+                <option value="-focDate">Más Viejos</option>
+              </select>
+            </label>
+          </div>
 
-        <button type="button" class="search__button">BUSCAR</button>
+          <button type="button" class="search__button">BUSCAR</button>
+        </div>
       </section>
+
+      <!-- Cambiar de lugar!!!!! -->
+      <h2 class="title__comics">Resultados</h2>
+      <!-- -------------------------- -->
 
       <section class="section-comics"></section>
 

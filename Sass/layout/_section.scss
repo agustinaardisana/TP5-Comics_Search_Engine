@@ -1,10 +1,21 @@
-section {
+section:not(.section-search) {
   @extend %flex-wrap;
+  justify-content: center;
 }
 
 .section-search {
   @include margin(60px, 10px, 80px, 10px);
-  @extend %flex-space-between;
+  width: 100%;
+  h2 {
+    @include margin(20px, 0px, 20px, 0px);
+  }
+  .search--container {
+    @extend %flex-space-between;
+    @extend %flex-wrap;
+    label {
+      color: $secondary-color;
+    }
+  }
 }
 
 #input__search {
@@ -20,5 +31,6 @@ section {
 .fa-search {
   font-size: 20px;
   position: relative;
-  left: 25px;
+  left: 15px;
+  top: 30px;
 }

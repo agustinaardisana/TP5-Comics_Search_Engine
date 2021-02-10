@@ -2,8 +2,8 @@
   &__comic,
   &__character {
     @extend %flex-column;
-    @include margin(0, 10px, 40px, 10px);
-    width: 175px;
+    @include margin(20px, 10px, 40px, 10px);
+    width: calc(100% / 5 - 2 * 10px);
     transform: translateY(0);
     transition: 0.3s;
     &:hover {

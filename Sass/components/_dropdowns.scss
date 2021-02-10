@@ -1,0 +1,5 @@
+select {
+  @include margin(0px, 30px, 5px, 10px);
+  border: 0;
+  font-weight: bold;
+}

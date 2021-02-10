@@ -1,0 +1,15 @@
+button {
+  color: $contrast-color;
+  background-color: $main-color;
+  border-radius: 5px;
+  cursor: pointer;
+  border: transparent;
+  @include padding(15px, 20px, 15px, 20px);
+  &:hover {
+    background: linear-gradient(
+      135deg,
+      $success-main-color,
+      $success-secondary-color
+    );
+  }
+}

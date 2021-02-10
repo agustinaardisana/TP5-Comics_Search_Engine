@@ -1,3 +1,6 @@
 main {
   @include margin(0, 10px, 0, 10px);
+  @extend %flex-column;
+  width: 100%;
+  max-width: 1200px;
 }
