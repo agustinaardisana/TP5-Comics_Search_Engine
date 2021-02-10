@@ -1,3 +1,7 @@
 section {
   @extend %flex-wrap;
 }
+
+.hidden {
+  display: none;
+}

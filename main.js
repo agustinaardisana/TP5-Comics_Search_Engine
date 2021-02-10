@@ -2,7 +2,10 @@
 const comicsSection = document.querySelector(".section-comics");
 const charactersSection = document.querySelector(".section-characters");
 const typeFilterSelect = document.getElementById("type__filter");
-const sortBySelect = document.getElementById("sortby__filter");
+const sortBySelectForComics = document.getElementById("sortby--filter__comics");
+const sortBySelectForCharacters = document.getElementById(
+  "sortby--filter__characters"
+);
 const searchButton = document.querySelector(".search__button");
 
 //Other Variables
@@ -11,36 +14,34 @@ const myApiKey = "09f672ea66d3144befdf6f7fc2796c10";
 const itemsPerPage = 20;
 const currentPage = 0;
 let url = ``;
+//
+window.onload = () => {
+  console.log("leo onload");
+  queryParamType = typeFilterSelect.value;
+  checkParameters(queryParamType);
+  console.log(checkParameters());
+};
 
 const createURL = (queryParamType, queryParamSort) => {
+  console.log("creo url");
+
   queryParamType = typeFilterSelect.value;
-  queryParamSort = sortBySelect.value;
+  queryParamSort = sortBySelectForComics.value;
+  console.log(queryParamType, queryParamSort);
 
   url = `${baseURL + queryParamType}?apikey=${myApiKey}&offset=${
     currentPage * itemsPerPage
-  }&orderBy=${queryParamSort}`;
+  }`; //&orderBy=${queryParamSort}`;
   return url;
 };
-createURL();
+//createURL();
 
 const fetchInfo = (url) => {
+  console.log("estoy en fetch");
+
   fetch(createURL())
     .then((data) => data.json())
     .then((info) => {
-      //console.log(info);
-      // comicsSection.innerHTML = "";
-      // info.data.results.map((comic) => {
-      //   //console.log(comic);
-      //   return (comicsSection.innerHTML += `
-      //   <article class="card--container__comic">
-      //     <div class="img--container__comic">
-      //       <img class="img__comic" src="${comic.thumbnail.path}.jpg" />
-      //     </div>
-      //     <h3 class="title__comic">
-      //       ${comic.title}
-      //     </h3>
-      //   </article>`);
-      // });
       createComicsCards(info);
     });
 };
@@ -75,11 +76,32 @@ const createCharactersCards = () => {
   });
 };
 
-const updateSearch = () => {
+const updateSortByOptions = () => {
+  console.log("entre a sort by");
+  queryParamType = typeFilterSelect.value;
+  if (queryParamType === "characters") {
+    sortBySelectForComics.classList.add("hidden");
+    sortBySelectForCharacters.classList.remove("hidden");
+    queryParamSort = sortBySelectForCharacters.value;
+  } else {
+    queryParamSort = sortBySelectForComics.value;
+  }
+  console.log(queryParamType, queryParamSort);
+  updateSearch(queryParamType, queryParamSort);
+};
+
+const updateSearch = (queryParamType, queryParamSort) => {
   searchButton.onclick = () => {
-    //falta fijarse si es comic o personaje para cambiar las categor'ias de sort
-    createURL();
+    console.log(queryParamType, queryParamSort);
+
+    createURL(queryParamType, queryParamSort);
     fetchInfo();
   };
+  createURL(queryParamType, queryParamSort);
 };
 updateSearch();
+
+const checkParameters = () => {
+  updateSortByOptions();
+  typeFilterSelect.onchange = () => updateSortByOptions();
+};

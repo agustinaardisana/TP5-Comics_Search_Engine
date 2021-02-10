@@ -38,13 +38,18 @@
             </select>
           </label>
 
-          <label for="sortby__filter" aria-label="Ordenar">
+          <label for="sortby--filter" aria-label="Ordenar">
             ORDEN
-            <select id="sortby__filter" name="sortby__filter">
-              <option value="title">A-Z</option>
-              <option value="-title">Z-A</option>
-              <option value="focDate">Más Nuevos</option>
-              <option value="-focDate">Más Viejos</option>
+            <select id="sortby--filter__comics" name="sortby__filter">
+                <option value="title">A-Z</option>
+                <option value="-title">Z-A</option>
+                <option value="focDate">Más Nuevos</option>
+                <option value="-focDate">Más Viejos</option>
+              </select>
+              <select id="sortby--filter__characters" class="hidden" name="sortby__filter">
+                <option value="name">A-Z</option>
+                <option value="-name">Z-A</option>
+              </div>
             </select>
           </label>
         </div>
