@@ -1,10 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Karla&family=Rubik&display=swap");
-/*Tmb puedo usar #E9C22B y #753E58 si fuera necesario*/
 * {
   margin: 0;
 }
 
-main, .card--container__comic, .card--container__character {
+a {
+  text-decoration: none;
+}
+
+footer, main, .card--container__comic, .card--container__character {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -55,7 +58,7 @@ select {
 }
 
 button {
-  color: #fafafa;
+  color: #d3d3d3;
   background-color: #1d1a1c;
   border-radius: 5px;
   cursor: pointer;
@@ -81,6 +84,7 @@ main {
   margin: 0 10px 0 10px;
   width: 100%;
   max-width: 1200px;
+  margin: 0 auto;
 }
 
 section:not(.section-search) {
@@ -113,6 +117,23 @@ section:not(.section-search) {
   position: relative;
   left: 15px;
   top: 30px;
+}
+
+footer {
+  background: linear-gradient(135deg, #ed1d24, #951e22);
+  color: #d3d3d3;
+  padding: 30px 0px 40px 0px;
+}
+footer a:link {
+  color: #d3d3d3;
+}
+footer a:visited {
+  color: #d3d3d3;
+}
+footer .footer--social i {
+  margin: 15px 15px 15px 15px;
+  color: #d3d3d3;
+  font-size: 30px;
 }
 
 /*# sourceMappingURL=style.css.map */

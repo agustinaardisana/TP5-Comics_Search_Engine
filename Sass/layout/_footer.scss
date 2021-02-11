@@ -1,0 +1,25 @@
+footer {
+  background: linear-gradient(
+    135deg,
+    $success-main-color,
+    $success-secondary-color
+  );
+  color: $contrast-color;
+  @extend %flex-column;
+  @include padding(30px, 0px, 40px, 0px);
+  a {
+    &:link {
+      color: $contrast-color;
+    }
+    &:visited {
+      color: $contrast-color;
+    }
+  }
+  .footer--social {
+    i {
+      @include margin(15px, 15px, 15px, 15px);
+      color: $contrast-color;
+      font-size: 30px;
+    }
+  }
+}
