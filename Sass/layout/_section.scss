@@ -34,3 +34,14 @@ section:not(.section-search) {
   left: 15px;
   top: 30px;
 }
+
+.section-pages {
+  @include margin(80px, 0px, 80px, 0px);
+
+  button {
+    @include margin(0px, 10px, 0px, 10px);
+    i {
+      font-size: 20px;
+    }
+  }
+}

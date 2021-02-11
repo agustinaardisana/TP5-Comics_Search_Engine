@@ -119,6 +119,16 @@ section:not(.section-search) {
   top: 30px;
 }
 
+.section-pages {
+  margin: 80px 0px 80px 0px;
+}
+.section-pages button {
+  margin: 0px 10px 0px 10px;
+}
+.section-pages button i {
+  font-size: 20px;
+}
+
 footer {
   background: linear-gradient(135deg, #ed1d24, #951e22);
   color: #d3d3d3;
