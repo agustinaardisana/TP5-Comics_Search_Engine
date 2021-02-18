@@ -7,6 +7,7 @@ const sortBySelectForCharacters = document.getElementById(
   "sortby--filter__characters"
 );
 const searchButton = document.querySelector(".search__button");
+const searchBar = document.getElementById("input__search");
 
 //Other Variables
 const baseURL = "https://gateway.marvel.com/v1/public/";
@@ -51,3 +52,71 @@ const createComicsCards = (info) => {
         </article>`);
   });
 };
+
+const createCharactersCards = () => {
+  charactersSection.innerHTML = "";
+  info.data.results.map((character) => {
+    return (charactersSection.innerHTML += `<article class="card--container__character">
+          <div class="img--container__character">
+            <img class="img__character" src="imgs/AVENGERS-FALCON-NEEDLE.png" />
+          </div>
+          <div class="title--container__character">
+            <h3 class="title__character">3-D Man</h3>
+          </div>
+        </article>`);
+  });
+};
+
+//Search and Filter Functions
+
+const updateSortByOptions = () => {
+  if (typeFilterSelect.value === "characters") {
+    sortBySelectForComics.classList.add("hidden");
+    sortBySelectForCharacters.classList.remove("hidden");
+  } else {
+    sortBySelectForCharacters.classList.add("hidden");
+    sortBySelectForComics.classList.remove("hidden");
+  }
+};
+
+typeFilterSelect.onchange = updateSortByOptions;
+
+const updateSortAndType = () => {
+  type = typeFilterSelect.value;
+
+  if (type === "characters") {
+    sort = sortBySelectForCharacters.value;
+  } else {
+    sort = sortBySelectForComics.value;
+  }
+  return type, sort;
+};
+
+const thereIsInput = () => {
+  if (searchBar.value) {
+    return true;
+  }
+};
+
+const searchByInput = () => {
+  if (thereIsInput()) {
+    searchInput = searchBar.value.toLowerCase();
+    type = typeFilterSelect.value;
+
+    if (type === "comics") {
+      return `${url}&titleStartsWith=${searchInput}`;
+    } else {
+      return `${url}&nameStartsWith=${searchInput}`;
+    }
+  } else {
+    return url;
+  }
+};
+
+const search = (type, sort) => {
+  updateSortAndType();
+  createURL(type, sort);
+  fetchInfo(searchByInput());
+};
+
+searchButton.onclick = search;
