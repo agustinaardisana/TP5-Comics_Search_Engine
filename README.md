@@ -2,6 +2,8 @@
 
 This is the fifth project that we've worked on as part of the **Frontend web development** training at **ADA ITW**, and the first one done using APIs.
 
+### 🖱️[click to see](https://agustinaardisana.github.io/TP5-Comics_Search_Engine/)
+
 ## Technologies and design
 
 The technologies used for this project are:
@@ -30,11 +32,13 @@ This is only my fifth coding project, as well as my first time working with APIs
 
 - [Agustina Ardisana](https://www.linkedin.com/in/agustinaardisana/)
 
-### 🖱️[click to see](https://agustinaardisana.github.io/TP5-Comics_Search_Engine/)
+---
 
 # [🇦🇷ESP] 🦸🏻‍♀️ ADA Comics 🦸🏻‍♀️ 🎮 (🚧 en construcción 🚧)
 
-Este es el tercer proyecto que forma parte de la currícula de la carrera de **Desarrollo Web Frontend** de **ADA ITW** y el primero hecho en equipo.
+Este es el quinto proyecto que forma parte de la currícula de la carrera de **Desarrollo Web Frontend** de **ADA ITW** y el primero trabajando con APIs.
+
+### 🖱️[click aquí para verlo](https://agustinaardisana.github.io/TP5-Comics_Search_Engine/)
 
 ## Tecnologías y diseño
 
@@ -63,5 +67,3 @@ Esta es mi quinto proyecto de codeado así como la primera vez trabajando con AP
 ## Autora
 
 - [Agustina Ardisana](https://www.linkedin.com/in/agustinaardisana/)
-
-### 🖱️[click aquí para verlo](https://agustinaardisana.github.io/TP5-Comics_Search_Engine/)
