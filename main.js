@@ -11,41 +11,31 @@ const searchButton = document.querySelector(".search__button");
 //Other Variables
 const baseURL = "https://gateway.marvel.com/v1/public/";
 const myApiKey = "09f672ea66d3144befdf6f7fc2796c10";
+let type = "comics";
+let sort = "title";
 const itemsPerPage = 20;
 const currentPage = 0;
 let url = ``;
-//
-window.onload = () => {
-  console.log("leo onload");
-  queryParamType = typeFilterSelect.value;
-  checkParameters(queryParamType);
-  console.log(checkParameters());
-};
 
 const createURL = (queryParamType, queryParamSort) => {
-  console.log("creo url");
-
-  queryParamType = typeFilterSelect.value;
-  queryParamSort = sortBySelectForComics.value;
-  console.log(queryParamType, queryParamSort);
+  queryParamType = type;
+  queryParamSort = sort;
 
   url = `${baseURL + queryParamType}?apikey=${myApiKey}&offset=${
     currentPage * itemsPerPage
-  }`; //&orderBy=${queryParamSort}`;
+  }&orderBy=${queryParamSort}`;
   return url;
 };
-//createURL();
+createURL();
 
 const fetchInfo = (url) => {
-  console.log("estoy en fetch");
-
-  fetch(createURL())
+  fetch(url)
     .then((data) => data.json())
     .then((info) => {
       createComicsCards(info);
     });
 };
-fetchInfo();
+fetchInfo(url);
 
 const createComicsCards = (info) => {
   comicsSection.innerHTML = "";
@@ -76,32 +66,38 @@ const createCharactersCards = () => {
   });
 };
 
+//Search and Filter Functions
+
 const updateSortByOptions = () => {
-  console.log("entre a sort by");
-  queryParamType = typeFilterSelect.value;
-  if (queryParamType === "characters") {
+  if (typeFilterSelect.value === "characters") {
     sortBySelectForComics.classList.add("hidden");
     sortBySelectForCharacters.classList.remove("hidden");
-    queryParamSort = sortBySelectForCharacters.value;
   } else {
-    queryParamSort = sortBySelectForComics.value;
+    sortBySelectForCharacters.classList.add("hidden");
+    sortBySelectForComics.classList.remove("hidden");
   }
-  console.log(queryParamType, queryParamSort);
-  updateSearch(queryParamType, queryParamSort);
 };
 
-const updateSearch = (queryParamType, queryParamSort) => {
+typeFilterSelect.onchange = updateSortByOptions;
+
+const search = (queryParamType, queryParamSort) => {
   searchButton.onclick = () => {
-    console.log(queryParamType, queryParamSort);
-
-    createURL(queryParamType, queryParamSort);
-    fetchInfo();
+    console.log("click en buscar");
+    updateSortAndType();
+    console.log(type, sort);
+    createURL(type, sort);
+    fetchInfo(url);
   };
-  createURL(queryParamType, queryParamSort);
 };
-updateSearch();
+search();
 
-const checkParameters = () => {
-  updateSortByOptions();
-  typeFilterSelect.onchange = () => updateSortByOptions();
+const updateSortAndType = () => {
+  type = typeFilterSelect.value;
+
+  if (type === "characters") {
+    sort = sortBySelectForCharacters.value;
+  } else {
+    sort = sortBySelectForComics.value;
+  }
+  return type, sort;
 };
