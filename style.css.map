@@ -1,18 +1,1 @@
-{
-  "version": 3,
-  "sourceRoot": "",
-  "sources": [
-    "Sass/base/_tipography.scss",
-    "Sass/base/_colors.scss",
-    "Sass/base/_base.scss",
-    "Sass/abstracts/_mixins.scss",
-    "Sass/components/_cards.scss",
-    "Sass/layout/_forms.scss",
-    "Sass/layout/_header.scss",
-    "Sass/layout/_main.scss",
-    "Sass/layout/_section.scss"
-  ],
-  "names": [],
-  "mappings": "AAAQ;ACGR;ACAA;EACE;;;ACJF;EACE;EACA;;;AAGF;EACE;EACA;;;ACNA;EDcA;ECVE;EACA;EACA;;AACA;EACE;EACA;;AAEE;EAEE;;AAIF;EAEE;;;AAQR;EAEE;EACA;;;AAMF;EAEE;EACA;;;ACxCJ;EFeE;;;AEXF;EFOE;EELA;EACA;EACA;EACA;EACA;EACA;;;AAGF;EACE;EACA;EACA;;;ACjBF;EACE;;;AAGF;EACE;EACA;EACA;EACA;;;ACRF;EJeE;;;AKXF;EACE",
-  "file": "style.css"
-}
+{"version":3,"sourceRoot":"","sources":["Sass/base/_tipography.scss","Sass/base/_base.scss","Sass/abstracts/_mixins.scss","Sass/components/_cards.scss","Sass/components/_dropdowns.scss","Sass/components/_buttons.scss","Sass/base/_colors.scss","Sass/layout/_header.scss","Sass/layout/_main.scss","Sass/layout/_section.scss","Sass/layout/_footer.scss"],"names":[],"mappings":"AAAQ;ACGR;EACE;;;AAIF;EACE;;;ACTF;EACE;EACA;EACA;;;AAGF;EACE;EACA;;;AAGF;EACE;EACA;EACA;;;ACbA;EDqBA;ECjBE;EACA;EACA;;AACA;EACE;EACA;;AAEE;EAEE;;AAIF;EAEE;;;AAQR;EAEE;EACA;;;AAMF;EAEE;EACA;;;ACxCJ;EFsBE;EEpBA;EACA;;;ACHF;EACE,OCGe;EDFf,kBCFW;EDGX;EACA;EACA;EHaA;;AGXA;EACE;;AAMF;EACE,OCdc;;;ACDlB;EACE;;;AAGF;EACE;EACA;EACA;EACA;;;ACRF;ENsBE;EMnBA;EACA;EACA;;;ACLF;EAEE;;;AAGF;EPiBE;EOfA;;AACA;EPcA;;AORE;EACE,OHdY;;;AGmBlB;EPFE;EOIA;EACA;EACA;EACA;EACA;EACA;;;AAGF;EACE;EACA;EACA;EACA;;;AAGF;EPfE;;AOkBA;EPlBA;;AOoBE;EACE;;;AAKN;EACE;;;AAGF;EACE;;;ACrDF;EACE;EAKA,OJFe;EJcf;;AQRE;EACE,OJPW;;AISb;EACE,OJVW;;AIcb;ERIF;EQFI,OJhBW;EIiBX","file":"style.css"}

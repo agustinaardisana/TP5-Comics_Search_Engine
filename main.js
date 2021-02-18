@@ -8,6 +8,10 @@ const sortBySelectForCharacters = document.getElementById(
 );
 const searchButton = document.querySelector(".search__button");
 const searchBar = document.getElementById("input__search");
+const firstPageButton = document.querySelector(".pages--button__first");
+const lastPageButton = document.querySelector(".pages--button__last");
+const rightPageButton = document.querySelector(".pages--button__right");
+const leftPageButton = document.querySelector(".pages--button__left");
 
 //Other Variables
 const baseURL = "https://gateway.marvel.com/v1/public/";
@@ -15,7 +19,8 @@ const myApiKey = "09f672ea66d3144befdf6f7fc2796c10";
 let type = "comics";
 let sort = "title";
 const itemsPerPage = 20;
-const currentPage = 0;
+let totalItems = 0;
+let currentPage = 0;
 let url = ``;
 
 const createURL = (queryParamType, queryParamSort) => {
@@ -33,7 +38,9 @@ const fetchInfo = (url) => {
   fetch(url)
     .then((data) => data.json())
     .then((info) => {
+      totalItems = info.data.total;
       createComicsCards(info);
+      updatePagination();
     });
 };
 fetchInfo(url);
@@ -120,3 +127,51 @@ const search = (type, sort) => {
 };
 
 searchButton.onclick = search;
+
+//Pagination
+rightPageButton.onclick = () => {
+  currentPage++;
+
+  fetchInfo(createURL());
+};
+
+leftPageButton.onclick = () => {
+  currentPage--;
+  fetchInfo(createURL());
+};
+
+firstPageButton.onclick = () => {
+  currentPage = 0;
+  fetchInfo(createURL());
+};
+
+lastPageButton.onclick = () => {
+  const totalPages = Math.floor(totalItems / itemsPerPage);
+  const lastPageItems = totalItems % itemsPerPage;
+  if (lastPageItems > 0) {
+    currentPage = totalPages;
+  } else {
+    currentPage = totalPages - 1;
+  }
+  fetchInfo(createURL());
+};
+
+const updatePagination = () => {
+  let offset = currentPage * itemsPerPage;
+
+  if (offset == 0) {
+    leftPageButton.disabled = true;
+    firstPageButton.disabled = true;
+  } else {
+    leftPageButton.disabled = false;
+    firstPageButton.disabled = false;
+  }
+
+  if (offset + itemsPerPage >= totalItems) {
+    rightPageButton.disabled = true;
+    lastPageButton.disabled = true;
+  } else {
+    rightPageButton.disabled = false;
+    lastPageButton.disabled = false;
+  }
+};

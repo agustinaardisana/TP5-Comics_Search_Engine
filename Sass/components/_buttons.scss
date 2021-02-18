@@ -5,11 +5,14 @@ button {
   cursor: pointer;
   border: transparent;
   @include padding(15px, 20px, 15px, 20px);
-  &:hover {
+  &:hover:not([disabled]) {
     background: linear-gradient(
       135deg,
       $success-main-color,
       $success-secondary-color
     );
+  }
+  &:disabled {
+    color: $secondary-color;
   }
 }

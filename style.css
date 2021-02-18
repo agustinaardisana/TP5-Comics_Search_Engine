@@ -65,8 +65,11 @@ button {
   border: transparent;
   padding: 15px 20px 15px 20px;
 }
-button:hover {
+button:hover:not([disabled]) {
   background: linear-gradient(135deg, #ed1d24, #951e22);
+}
+button:disabled {
+  color: #7e7e7e;
 }
 
 header {
@@ -129,6 +132,14 @@ section:not(.section-search) {
   font-size: 20px;
 }
 
+.hidden {
+  display: none;
+}
+
+.hidden {
+  display: none;
+}
+
 footer {
   background: linear-gradient(135deg, #ed1d24, #951e22);
   color: #d3d3d3;
@@ -144,14 +155,6 @@ footer .footer--social i {
   margin: 15px 15px 15px 15px;
   color: #d3d3d3;
   font-size: 30px;
-}
-
-.hidden {
-  display: none;
-}
-
-.hidden {
-  display: none;
 }
 
 /*# sourceMappingURL=style.css.map */
