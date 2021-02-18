@@ -7,6 +7,7 @@ const sortBySelectForCharacters = document.getElementById(
   "sortby--filter__characters"
 );
 const searchButton = document.querySelector(".search__button");
+const searchBar = document.getElementById("input__search");
 
 //Other Variables
 const baseURL = "https://gateway.marvel.com/v1/public/";
@@ -80,17 +81,6 @@ const updateSortByOptions = () => {
 
 typeFilterSelect.onchange = updateSortByOptions;
 
-const search = (queryParamType, queryParamSort) => {
-  searchButton.onclick = () => {
-    console.log("click en buscar");
-    updateSortAndType();
-    console.log(type, sort);
-    createURL(type, sort);
-    fetchInfo(url);
-  };
-};
-search();
-
 const updateSortAndType = () => {
   type = typeFilterSelect.value;
 
@@ -101,3 +91,32 @@ const updateSortAndType = () => {
   }
   return type, sort;
 };
+
+const thereIsInput = () => {
+  if (searchBar.value) {
+    return true;
+  }
+};
+
+const searchByInput = () => {
+  if (thereIsInput()) {
+    searchInput = searchBar.value.toLowerCase();
+    type = typeFilterSelect.value;
+
+    if (type === "comics") {
+      return `${url}&titleStartsWith=${searchInput}`;
+    } else {
+      return `${url}&nameStartsWith=${searchInput}`;
+    }
+  } else {
+    return url;
+  }
+};
+
+const search = (type, sort) => {
+  updateSortAndType();
+  createURL(type, sort);
+  fetchInfo(searchByInput());
+};
+
+searchButton.onclick = search;
