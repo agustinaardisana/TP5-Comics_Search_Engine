@@ -39,14 +39,19 @@ const fetchInfo = (url) => {
     .then((data) => data.json())
     .then((info) => {
       totalItems = info.data.total;
-      createComicsCards(info);
+      if (type === "comics") {
+        createComicsCards(info);
+      } else {
+        createCharactersCards(info);
+      }
       updatePagination();
     });
 };
 fetchInfo(url);
 
 const createComicsCards = (info) => {
-  comicsSection.innerHTML = "";
+  clearSectionContent(comicsSection);
+  clearSectionContent(charactersSection);
   info.data.results.map((comic) => {
     return (comicsSection.innerHTML += `
         <article class="card--container__comic">
@@ -60,19 +65,22 @@ const createComicsCards = (info) => {
   });
 };
 
-const createCharactersCards = () => {
-  charactersSection.innerHTML = "";
+const createCharactersCards = (info) => {
+  clearSectionContent(comicsSection);
+  clearSectionContent(charactersSection);
   info.data.results.map((character) => {
     return (charactersSection.innerHTML += `<article class="card--container__character">
           <div class="img--container__character">
-            <img class="img__character" src="imgs/AVENGERS-FALCON-NEEDLE.png" />
+            <img class="img__character" src="${character.thumbnail.path}.jpg" />
           </div>
           <div class="title--container__character">
-            <h3 class="title__character">3-D Man</h3>
+            <h3 class="title__character">${character.name}</h3>
           </div>
         </article>`);
   });
 };
+
+const clearSectionContent = (sectionClass) => (sectionClass.innerHTML = "");
 
 //Search and Filter Functions
 
