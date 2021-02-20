@@ -41,7 +41,9 @@ const fetchInfo = (url) => {
       totalItems = info.data.total;
       if (type === "comics") {
         createComicsCards(info);
+        testImage(comicsImgs);
       } else {
+        console.log(info);
         createCharactersCards(info);
       }
       updatePagination();
@@ -53,7 +55,11 @@ const createComicsCards = (info) => {
   clearSectionContent(comicsSection);
   clearSectionContent(charactersSection);
   info.data.results.map((comic) => {
-    return (comicsSection.innerHTML += `
+    const comicsImgs = document.querySelectorAll(".img__comic");
+    console.log(comicsImgs);
+    return (
+      comicsImgs,
+      (comicsSection.innerHTML += `
         <article class="card--container__comic">
           <div class="img--container__comic">
             <img class="img__comic" src="${comic.thumbnail.path}.jpg" />
@@ -61,7 +67,8 @@ const createComicsCards = (info) => {
           <h3 class="title__comic">
             ${comic.title}
           </h3>
-        </article>`);
+        </article>`)
+    );
   });
 };
 
@@ -69,6 +76,7 @@ const createCharactersCards = (info) => {
   clearSectionContent(comicsSection);
   clearSectionContent(charactersSection);
   info.data.results.map((character) => {
+    const charactersImgs = document.querySelectorAll(".img__character");
     return (charactersSection.innerHTML += `<article class="card--container__character">
           <div class="img--container__character">
             <img class="img__character" src="${character.thumbnail.path}.jpg" />
@@ -81,6 +89,17 @@ const createCharactersCards = (info) => {
 };
 
 const clearSectionContent = (sectionClass) => (sectionClass.innerHTML = "");
+
+const testImage = (imgList) => {
+  imgList.forEach((img) => {
+    if (
+      img.src ==
+      "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg"
+    ) {
+      console.log("img not available");
+    }
+  });
+};
 
 //Search and Filter Functions
 
