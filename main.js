@@ -41,7 +41,7 @@ const fetchInfo = (url) => {
       totalItems = info.data.total;
       if (type === "comics") {
         createComicsCards(info);
-        testImage(comicsImgs);
+        //findAndReplaceBrokenImg(comicsImgs);
       } else {
         console.log(info);
         createCharactersCards(info);
@@ -55,21 +55,17 @@ const createComicsCards = (info) => {
   clearSectionContent(comicsSection);
   clearSectionContent(charactersSection);
   info.data.results.map((comic) => {
-    const comicsImgs = document.querySelectorAll(".img__comic");
-    console.log(comicsImgs);
-    return (
-      comicsImgs,
-      (comicsSection.innerHTML += `
+    return (comicsSection.innerHTML += `
         <article class="card--container__comic">
           <div class="img--container__comic">
-            <img class="img__comic" src="${comic.thumbnail.path}.jpg" />
+            <img class="thumbnail img__comic" src="${comic.thumbnail.path}.${comic.thumbnail.extension}" />
           </div>
           <h3 class="title__comic">
             ${comic.title}
           </h3>
-        </article>`)
-    );
+        </article>`);
   });
+  findAndReplaceBrokenImg();
 };
 
 const createCharactersCards = (info) => {
@@ -79,30 +75,31 @@ const createCharactersCards = (info) => {
     const charactersImgs = document.querySelectorAll(".img__character");
     return (charactersSection.innerHTML += `<article class="card--container__character">
           <div class="img--container__character">
-            <img class="img__character" src="${character.thumbnail.path}.jpg" />
+            <img class="thumbnail img__character" src="${character.thumbnail.path}.${character.thumbnail.extension}" />
           </div>
           <div class="title--container__character">
             <h3 class="title__character">${character.name}</h3>
           </div>
         </article>`);
   });
+  findAndReplaceBrokenImg();
 };
 
 const clearSectionContent = (sectionClass) => (sectionClass.innerHTML = "");
 
-const testImage = (imgList) => {
-  imgList.forEach((img) => {
+const findAndReplaceBrokenImg = () => {
+  const thumbnails = document.querySelectorAll(".thumbnail");
+  thumbnails.forEach((thumbnail) => {
     if (
-      img.src ==
+      thumbnail.currentSrc ==
       "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg"
     ) {
-      console.log("img not available");
+      thumbnail.src = "imgs/not_found.jpg";
     }
   });
 };
 
 //Search and Filter Functions
-
 const updateSortByOptions = () => {
   if (typeFilterSelect.value === "characters") {
     sortBySelectForComics.classList.add("hidden");
@@ -148,6 +145,7 @@ const searchByInput = () => {
 };
 
 const search = (type, sort) => {
+  currentPage = 0;
   updateSortAndType();
   createURL(type, sort);
   fetchInfo(searchByInput());
