@@ -1,4 +1,5 @@
 //DOM variables
+const resultsContainer = document.querySelector(".results--container");
 const comicsSection = document.querySelector(".section-comics");
 const charactersSection = document.querySelector(".section-characters");
 const typeFilterSelect = document.getElementById("type__filter");
@@ -8,6 +9,7 @@ const sortBySelectForCharacters = document.getElementById(
 );
 const searchButton = document.querySelector(".search__button");
 const searchBar = document.getElementById("input__search");
+const resultsNumber = document.querySelector(".results__number");
 const firstPageButton = document.querySelector(".pages--button__first");
 const lastPageButton = document.querySelector(".pages--button__last");
 const rightPageButton = document.querySelector(".pages--button__right");
@@ -38,12 +40,11 @@ const fetchInfo = (url) => {
   fetch(url)
     .then((data) => data.json())
     .then((info) => {
-      totalItems = info.data.total;
+      console.log(info);
+      findResultsNumber(info);
       if (type === "comics") {
         createComicsCards(info);
-        //findAndReplaceBrokenImg(comicsImgs);
       } else {
-        console.log(info);
         createCharactersCards(info);
       }
       updatePagination();
@@ -52,10 +53,9 @@ const fetchInfo = (url) => {
 fetchInfo(url);
 
 const createComicsCards = (info) => {
-  clearSectionContent(comicsSection);
-  clearSectionContent(charactersSection);
+  clearSectionContent(resultsContainer);
   info.data.results.map((comic) => {
-    return (comicsSection.innerHTML += `
+    return (resultsContainer.innerHTML += `
         <article class="card--container__comic">
           <div class="img--container__comic">
             <img class="thumbnail img__comic" src="${comic.thumbnail.path}.${comic.thumbnail.extension}" />
@@ -69,11 +69,10 @@ const createComicsCards = (info) => {
 };
 
 const createCharactersCards = (info) => {
-  clearSectionContent(comicsSection);
-  clearSectionContent(charactersSection);
+  clearSectionContent(resultsContainer);
   info.data.results.map((character) => {
     const charactersImgs = document.querySelectorAll(".img__character");
-    return (charactersSection.innerHTML += `<article class="card--container__character">
+    return (resultsContainer.innerHTML += `<article class="card--container__character">
           <div class="img--container__character">
             <img class="thumbnail img__character" src="${character.thumbnail.path}.${character.thumbnail.extension}" />
           </div>
@@ -97,6 +96,12 @@ const findAndReplaceBrokenImg = () => {
       thumbnail.src = "imgs/not_found.jpg";
     }
   });
+};
+
+const findResultsNumber = (info) => {
+  totalItems = info.data.total;
+  resultsNumber.textContent = totalItems;
+  return totalItems;
 };
 
 //Search and Filter Functions
