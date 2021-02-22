@@ -13,7 +13,7 @@ footer, main, .card--container__comic, .card--container__character {
   align-items: center;
 }
 
-.section-search .search--container, section:not(.section-search) {
+.results--container, .section-search .search--container {
   display: flex;
   flex-wrap: wrap;
 }
@@ -90,10 +90,6 @@ main {
   margin: 0 auto;
 }
 
-section:not(.section-search) {
-  justify-content: center;
-}
-
 .section-search {
   margin: 60px 10px 80px 10px;
   width: 100%;
@@ -122,6 +118,10 @@ section:not(.section-search) {
   top: 30px;
 }
 
+.results--container {
+  justify-content: center;
+}
+
 .section-pages {
   margin: 80px 0px 80px 0px;
 }
@@ -130,6 +130,15 @@ section:not(.section-search) {
 }
 .section-pages button i {
   font-size: 20px;
+}
+
+.results--title__container {
+  margin: 20px 10px 20px 10px;
+}
+.results--title__container p {
+  padding: 15px 0px 15px 0px;
+  color: #7e7e7e;
+  font-weight: 700;
 }
 
 .hidden {
