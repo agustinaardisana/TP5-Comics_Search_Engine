@@ -91,7 +91,7 @@ const findAndReplaceBrokenImg = () => {
   const thumbnails = document.querySelectorAll(".thumbnail");
   thumbnails.forEach((thumbnail) => {
     if (
-      thumbnail.currentSrc ==
+      thumbnail.src ==
       "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg"
     ) {
       thumbnail.src = "imgs/not_found.jpg";
