@@ -44,8 +44,10 @@ const fetchInfo = (url) => {
       findResultsNumber(info);
       if (type === "comics") {
         createComicsCards(info);
-      } else {
+      } else if (type === "characters") {
         createCharactersCards(info);
+      } else if (type == `comics/${comicId}`) {
+        updateComicInfo(info);
       }
       updatePagination();
     });
@@ -56,7 +58,7 @@ const createComicsCards = (info) => {
   clearSectionContent(resultsContainer);
   info.data.results.map((comic) => {
     return (resultsContainer.innerHTML += `
-        <article class="card--container__comic">
+        <article class="card--container__comic" id="${comic.id}">
           <div class="img--container__comic">
             <img class="thumbnail img__comic" src="${comic.thumbnail.path}.${comic.thumbnail.extension}" />
           </div>
@@ -66,12 +68,12 @@ const createComicsCards = (info) => {
         </article>`);
   });
   findAndReplaceBrokenImg();
+  displayComicSection();
 };
 
 const createCharactersCards = (info) => {
   clearSectionContent(resultsContainer);
   info.data.results.map((character) => {
-    const charactersImgs = document.querySelectorAll(".img__character");
     return (resultsContainer.innerHTML += `<article class="card--container__character">
           <div class="img--container__character">
             <img class="thumbnail img__character" src="${character.thumbnail.path}.${character.thumbnail.extension}" />
@@ -85,6 +87,8 @@ const createCharactersCards = (info) => {
 };
 
 const clearSectionContent = (sectionClass) => (sectionClass.innerHTML = "");
+const show = (elementName) => elementName.classList.remove("hidden");
+const hide = (elementName) => elementName.classList.add("hidden");
 
 const findAndReplaceBrokenImg = () => {
   const thumbnails = document.querySelectorAll(".thumbnail");
@@ -107,11 +111,11 @@ const findResultsNumber = (info) => {
 //Search and Filter Functions
 const updateSortByOptions = () => {
   if (typeFilterSelect.value === "characters") {
-    sortBySelectForComics.classList.add("hidden");
-    sortBySelectForCharacters.classList.remove("hidden");
+    hide(sortBySelectForComics);
+    show(sortBySelectForCharacters);
   } else {
-    sortBySelectForCharacters.classList.add("hidden");
-    sortBySelectForComics.classList.remove("hidden");
+    hide(sortBySelectForCharacters);
+    show(sortBySelectForComics);
   }
 };
 
@@ -203,5 +207,74 @@ const updatePagination = () => {
   } else {
     rightPageButton.disabled = false;
     lastPageButton.disabled = false;
+  }
+};
+
+//Display Comic Info
+
+const displayComicSection = () => {
+  const comicCards = document.querySelectorAll(".card--container__comic");
+  comicCards.forEach((comic) => {
+    comic.onclick = () => {
+      comicId = comic.id;
+      clearSectionContent(resultsContainer);
+      hide(resultsContainer);
+      show(comicsSection);
+      fetchComicInfo(comicId);
+    };
+  });
+};
+
+const fetchComicInfo = (comicId) => {
+  type = `comics/${comicId}`;
+  fetchInfo(createURL());
+};
+
+const updateComicInfo = (info) => {
+  console.log(info);
+  clearSectionContent(comicsSection);
+  info.data.results.map((comic) => {
+    const imgURL = `${comic.thumbnail.path}.${comic.thumbnail.extension}`;
+    const onSaleDate = comic.dates.filter(
+      (date) => date.type == "onsaleDate"
+    )[0].date;
+    const writer = comic.creators.items.filter(
+      (creator) => creator.role == "writer"
+    )[0].name;
+    const description = descriptionNotFound(comic);
+
+    return (comicsSection.innerHTML = `
+    <article class="info--container__comic" id="${comic.id}">
+      <div class="img--container__comic">
+        <img class="thumbnail img__comic" src="${imgURL}" />
+      </div>
+      <h2 class="title__comic">
+        ${comic.title}
+      </h2>
+      <h3>
+      Publicado:
+      <p>${onSaleDate}</p>
+      </h3>
+      <h3>
+      Guionistas:
+      <p>${writer}</p>
+      </h3>
+      <h3>
+      Descripción:
+      <p>${description}</p>
+      </h3>
+    </article>`);
+  });
+};
+
+const displayComicInfo = () => {
+  //aca va a ir el return de updateComicInfo
+};
+
+const descriptionNotFound = (element) => {
+  if (element.description == null) {
+    return ``;
+  } else {
+    return element.description;
   }
 };
