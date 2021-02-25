@@ -1,5 +1,6 @@
 //DOM variables
 const resultsContainer = document.querySelector(".results--container");
+const resultsSection = document.querySelector(".section-results");
 const comicsSection = document.querySelector(".section-comics");
 const charactersSection = document.querySelector(".section-characters");
 const typeFilterSelect = document.getElementById("type__filter");
@@ -218,7 +219,7 @@ const displayComicSection = () => {
     comic.onclick = () => {
       comicId = comic.id;
       clearSectionContent(resultsContainer);
-      hide(resultsContainer);
+      hide(resultsSection);
       show(comicsSection);
       fetchComicInfo(comicId);
     };
@@ -243,21 +244,17 @@ const updateComicInfo = (info) => {
       <div class="img--container__comic">
         <img class="thumbnail img__comic" src="${imgURL}" />
       </div>
+      <div class="info--container__comic">
       <h2 class="title__comic">
         ${comic.title}
       </h2>
-      <h3>
-      Publicado:
+      <h3>Publicado:</h3>
       <p>${onSaleDate}</p>
-      </h3>
-      <h3>
-      Guionista/s:
+      <h3>Guionista/s:</h3>
       <p>${writer}</p>
-      </h3>
-      <h3>
-      Descripción:
+      <h3>Descripción:</h3>
       <p>${comic.description || `No disponible`}</p>
-      </h3>
+      </div>
     </article>`);
   });
 };

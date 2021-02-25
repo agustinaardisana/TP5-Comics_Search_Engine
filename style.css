@@ -141,6 +141,21 @@ main {
   font-weight: 700;
 }
 
+.section-comics article {
+  display: flex;
+  margin: 50px 10px 50px 10px;
+}
+.section-comics article img {
+  max-width: 350px;
+  margin: 0px 50px 0px 0px;
+}
+.section-comics article .info--container__comic {
+  max-width: 550px;
+}
+.section-comics article .info--container__comic > * {
+  margin: 10px 0px 10px 0px;
+}
+
 .hidden {
   display: none;
 }

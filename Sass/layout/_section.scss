@@ -55,6 +55,26 @@
   }
 }
 
+.section-comics {
+  article {
+    display: flex;
+    @include margin(50px, 10px, 50px, 10px);
+
+    img {
+      max-width: 350px;
+      @include margin(0px, 50px, 0px, 0px);
+    }
+
+    .info--container__comic {
+      max-width: 550px;
+    }
+
+    .info--container__comic > * {
+      @include margin(10px, 0px, 10px, 0px);
+    }
+  }
+}
+
 .hidden {
   display: none;
 }
