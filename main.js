@@ -235,9 +235,7 @@ const updateComicInfo = (info) => {
   clearSectionContent(comicsSection);
   info.data.results.map((comic) => {
     const imgURL = `${comic.thumbnail.path}.${comic.thumbnail.extension}`;
-    const onSaleDate = comic.dates.filter(
-      (date) => date.type == "onsaleDate"
-    )[0].date;
+    const onSaleDate = findSaleDate(comic);
     const writer = creatorsListHasWriter(comic);
 
     return (comicsSection.innerHTML = `
@@ -285,4 +283,17 @@ const findWriterName = (creatorsList) => {
   return writerName.length > 1 ? writerName.join(", ") : writerName[0];
 };
 
-const findSaleDate = () => {};
+const findSaleDate = (comic) => {
+  const saleDate = comic.dates.find((date) => date.type == "onsaleDate").date;
+  const saleDateObj = new Date(saleDate);
+
+  return convertToLocalDate(saleDateObj);
+};
+
+const convertToLocalDate = (saleDateObj) => {
+  const localDate =
+    saleDateObj.toLocaleDateString() === "Invalid Date"
+      ? "No disponible"
+      : saleDateObj.toLocaleDateString();
+  return localDate;
+};
