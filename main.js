@@ -238,9 +238,10 @@ const updateComicInfo = (info) => {
     const onSaleDate = comic.dates.filter(
       (date) => date.type == "onsaleDate"
     )[0].date;
-    const writer = comic.creators.items.filter(
-      (creator) => creator.role == "writer"
-    )[0].name;
+    const writer = writerExists(comic);
+    // comic.creators.items.filter(
+    //   (creator) => creator.role == "writer"
+    // )[0].name;
     const description = descriptionNotFound(comic);
 
     return (comicsSection.innerHTML = `
@@ -272,9 +273,33 @@ const displayComicInfo = () => {
 };
 
 const descriptionNotFound = (element) => {
+  //element.description ? "No disponible" : element.description;
   if (element.description == null) {
     return ``;
   } else {
     return element.description;
+  }
+};
+
+const writerExists = (comic) => {
+  const creatorsList = comic.creators.items;
+  if (creatorsList.length > 0) {
+    return findWriterName(creatorsList);
+  } else {
+    return ``;
+  }
+};
+
+const findWriterName = (creatorsList) => {
+  const writerName = creatorsList
+    .filter((creator) => creator.role == "writer")
+    .map((creator) => creator.name);
+
+  if (writerName != [] && writerName.length > 1) {
+    return writerName.join(", ");
+  } else if (writerName != [] && writerName.length == 1) {
+    return writerName[0];
+  } else {
+    return `No disponible`;
   }
 };
