@@ -238,11 +238,7 @@ const updateComicInfo = (info) => {
     const onSaleDate = comic.dates.filter(
       (date) => date.type == "onsaleDate"
     )[0].date;
-    const writer = writerExists(comic);
-    // comic.creators.items.filter(
-    //   (creator) => creator.role == "writer"
-    // )[0].name;
-    const description = descriptionNotFound(comic);
+    const writer = creatorsListHasWriter(comic);
 
     return (comicsSection.innerHTML = `
     <article class="info--container__comic" id="${comic.id}">
@@ -257,12 +253,12 @@ const updateComicInfo = (info) => {
       <p>${onSaleDate}</p>
       </h3>
       <h3>
-      Guionistas:
+      Guionista/s:
       <p>${writer}</p>
       </h3>
       <h3>
       Descripción:
-      <p>${description}</p>
+      <p>${comic.description || `No disponible`}</p>
       </h3>
     </article>`);
   });
@@ -272,22 +268,13 @@ const displayComicInfo = () => {
   //aca va a ir el return de updateComicInfo
 };
 
-const descriptionNotFound = (element) => {
-  //element.description ? "No disponible" : element.description;
-  if (element.description == null) {
-    return ``;
-  } else {
-    return element.description;
-  }
-};
-
-const writerExists = (comic) => {
+const creatorsListHasWriter = (comic) => {
   const creatorsList = comic.creators.items;
-  if (creatorsList.length > 0) {
-    return findWriterName(creatorsList);
-  } else {
-    return ``;
-  }
+  const hasWriter = creatorsList.some((creator) => creator.role == "writer");
+
+  return creatorsList.length > 0 && hasWriter
+    ? findWriterName(creatorsList)
+    : `No disponible`;
 };
 
 const findWriterName = (creatorsList) => {
@@ -295,11 +282,7 @@ const findWriterName = (creatorsList) => {
     .filter((creator) => creator.role == "writer")
     .map((creator) => creator.name);
 
-  if (writerName != [] && writerName.length > 1) {
-    return writerName.join(", ");
-  } else if (writerName != [] && writerName.length == 1) {
-    return writerName[0];
-  } else {
-    return `No disponible`;
-  }
+  return writerName.length > 1 ? writerName.join(", ") : writerName[0];
 };
+
+const findSaleDate = () => {};
