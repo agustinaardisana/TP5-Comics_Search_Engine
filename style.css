@@ -122,6 +122,17 @@ main {
   justify-content: center;
 }
 
+.results--title__container {
+  width: 100vw;
+  max-width: 1000px;
+  margin: 20px 10px 20px 10px;
+}
+.results--title__container p {
+  padding: 15px 0px 15px 0px;
+  color: #7e7e7e;
+  font-weight: 700;
+}
+
 .section-pages {
   margin: 80px 0px 80px 0px;
 }
@@ -130,15 +141,6 @@ main {
 }
 .section-pages button i {
   font-size: 20px;
-}
-
-.results--title__container {
-  margin: 20px 10px 20px 10px;
-}
-.results--title__container p {
-  padding: 15px 0px 15px 0px;
-  color: #7e7e7e;
-  font-weight: 700;
 }
 
 .section-comics article {

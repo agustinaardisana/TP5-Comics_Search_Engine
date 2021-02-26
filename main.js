@@ -25,6 +25,8 @@ const itemsPerPage = 20;
 let totalItems = 0;
 let currentPage = 0;
 let url = ``;
+const noInfoMsg = `No disponible`;
+const noResultsMsg = `<p>No se han encontrado resultados</p>`;
 
 const createURL = (queryParamType, queryParamSort) => {
   queryParamType = type;
@@ -45,10 +47,10 @@ const fetchInfo = (url) => {
       findResultsNumber(info);
       if (type === "comics") {
         createComicsCards(info);
-      } else if (type === "characters") {
+      } else if (type === "characters" || sort === ``) {
         createCharactersCards(info);
       } else if (type == `comics/${comicId}`) {
-        updateComicInfo(info);
+        displayComicInfo(info);
       }
       updatePagination();
     });
@@ -106,7 +108,13 @@ const findAndReplaceBrokenImg = () => {
 const findResultsNumber = (info) => {
   totalItems = info.data.total;
   resultsNumber.textContent = totalItems;
-  return totalItems;
+  return totalItems != 0 ? totalItems : showNoResultsMsg();
+};
+
+const showNoResultsMsg = () => {
+  clearSectionContent(resultsContainer);
+  show(resultsSection);
+  resultsContainer.innerHTML = noResultsMsg;
 };
 
 //Search and Filter Functions
@@ -226,18 +234,26 @@ const displayComicSection = () => {
   });
 };
 
-const fetchComicInfo = (comicId) => {
-  type = `comics/${comicId}`;
+const fetchComicInfo = (comicId, path) => {
+  if (path) {
+    sort = ``;
+    type = `comics/${comicId}/${path}`;
+  } else {
+    type = `comics/${comicId}`;
+  }
   fetchInfo(createURL());
 };
 
-const updateComicInfo = (info) => {
+const displayComicInfo = (info) => {
   console.log(info);
   clearSectionContent(comicsSection);
   info.data.results.map((comic) => {
     const imgURL = `${comic.thumbnail.path}.${comic.thumbnail.extension}`;
     const onSaleDate = findSaleDate(comic);
     const writer = creatorsListHasWriter(comic);
+    const characters = comic.characters.available
+      ? displayIncludedCharacters(comic, comic.id)
+      : updateAvailableCharacters(comic);
 
     return (comicsSection.innerHTML = `
     <article class="info--container__comic" id="${comic.id}">
@@ -253,14 +269,10 @@ const updateComicInfo = (info) => {
       <h3>Guionista/s:</h3>
       <p>${writer}</p>
       <h3>Descripción:</h3>
-      <p>${comic.description || `No disponible`}</p>
+      <p>${comic.description || noInfoMsg}</p>
       </div>
     </article>`);
   });
-};
-
-const displayComicInfo = () => {
-  //aca va a ir el return de updateComicInfo
 };
 
 const creatorsListHasWriter = (comic) => {
@@ -269,7 +281,7 @@ const creatorsListHasWriter = (comic) => {
 
   return creatorsList.length > 0 && hasWriter
     ? findWriterName(creatorsList)
-    : `No disponible`;
+    : noInfoMsg;
 };
 
 const findWriterName = (creatorsList) => {
@@ -290,7 +302,18 @@ const findSaleDate = (comic) => {
 const convertToLocalDate = (saleDateObj) => {
   const localDate =
     saleDateObj.toLocaleDateString() === "Invalid Date"
-      ? "No disponible"
+      ? noInfoMsg
       : saleDateObj.toLocaleDateString();
   return localDate;
+};
+
+const displayIncludedCharacters = (comic, comicId) => {
+  show(resultsSection);
+  fetchComicInfo(comicId, "characters");
+};
+
+const updateAvailableCharacters = (comic) => {
+  totalItems = comic.characters.available;
+  resultsNumber.textContent = totalItems;
+  showNoResultsMsg();
 };

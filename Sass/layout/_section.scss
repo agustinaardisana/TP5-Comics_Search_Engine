@@ -35,6 +35,17 @@
   justify-content: center;
 }
 
+.results--title__container {
+  width: 100vw;
+  max-width: 1000px;
+  @include margin(20px, 10px, 20px, 10px);
+  p {
+    @include padding(15px, 0px, 15px, 0px);
+    color: $secondary-color;
+    font-weight: 700;
+  }
+}
+
 .section-pages {
   @include margin(80px, 0px, 80px, 0px);
 
@@ -43,15 +54,6 @@
     i {
       font-size: 20px;
     }
-  }
-}
-
-.results--title__container {
-  @include margin(20px, 10px, 20px, 10px);
-  p {
-    @include padding(15px, 0px, 15px, 0px);
-    color: $secondary-color;
-    font-weight: 700;
   }
 }
 
