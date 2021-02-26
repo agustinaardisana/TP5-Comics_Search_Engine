@@ -57,7 +57,8 @@
   }
 }
 
-.section-comics {
+.section-comics,
+.section-characters {
   article {
     display: flex;
     @include margin(50px, 10px, 50px, 10px);
@@ -67,11 +68,13 @@
       @include margin(0px, 50px, 0px, 0px);
     }
 
-    .info--container__comic {
+    .info--container__comic,
+    .info--container__character {
       max-width: 550px;
     }
 
-    .info--container__comic > * {
+    .info--container__comic > *,
+    .info--container__character > * {
       @include margin(10px, 0px, 10px, 0px);
     }
   }
