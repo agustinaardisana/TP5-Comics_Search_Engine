@@ -28,6 +28,12 @@ let url = ``;
 const noInfoMsg = `No disponible`;
 const noResultsMsg = `<p>No se han encontrado resultados</p>`;
 
+//Broad-use functions
+const clearSectionContent = (sectionClass) => (sectionClass.innerHTML = "");
+const show = (elementName) => elementName.classList.remove("hidden");
+const hide = (elementName) => elementName.classList.add("hidden");
+//
+
 const createURL = (queryParamType, queryParamSort) => {
   queryParamType = type;
   queryParamSort = sort;
@@ -40,6 +46,7 @@ const createURL = (queryParamType, queryParamSort) => {
 createURL();
 
 const fetchInfo = (url) => {
+  console.log(url);
   fetch(url)
     .then((data) => data.json())
     .then((info) => {
@@ -47,10 +54,17 @@ const fetchInfo = (url) => {
       findResultsNumber(info);
       if (type === "comics") {
         createComicsCards(info);
-      } else if (type === "characters" || sort === ``) {
+      } else if (type == "characters" || sort === ``) {
         createCharactersCards(info);
-      } else if (type == `comics/${comicId}`) {
-        displayComicInfo(info);
+        // } else if (type == `comics/${comicId}`) {
+        //   displayComicInfo(info);
+        // } else if (type == `characters/${characterId}`) {
+        //   displayCharacterInfo(info);
+        // }
+        // } else if (comicId) {
+        //   displayComicInfo(info);
+      } else if (characterId) {
+        displayCharacterInfo(info);
       }
       updatePagination();
     });
@@ -77,7 +91,7 @@ const createComicsCards = (info) => {
 const createCharactersCards = (info) => {
   clearSectionContent(resultsContainer);
   info.data.results.map((character) => {
-    return (resultsContainer.innerHTML += `<article class="card--container__character">
+    return (resultsContainer.innerHTML += `<article class="card--container__character" id="${character.id}">
           <div class="img--container__character">
             <img class="thumbnail img__character" src="${character.thumbnail.path}.${character.thumbnail.extension}" />
           </div>
@@ -87,11 +101,8 @@ const createCharactersCards = (info) => {
         </article>`);
   });
   findAndReplaceBrokenImg();
+  displayCharacterSection();
 };
-
-const clearSectionContent = (sectionClass) => (sectionClass.innerHTML = "");
-const show = (elementName) => elementName.classList.remove("hidden");
-const hide = (elementName) => elementName.classList.add("hidden");
 
 const findAndReplaceBrokenImg = () => {
   const thumbnails = document.querySelectorAll(".thumbnail");
@@ -220,7 +231,6 @@ const updatePagination = () => {
 };
 
 //Display Comic Info
-
 const displayComicSection = () => {
   const comicCards = document.querySelectorAll(".card--container__comic");
   comicCards.forEach((comic) => {
@@ -229,18 +239,28 @@ const displayComicSection = () => {
       clearSectionContent(resultsContainer);
       hide(resultsSection);
       show(comicsSection);
-      fetchComicInfo(comicId);
+      fetchComicInfo("comics", comicId);
     };
   });
 };
 
-const fetchComicInfo = (comicId, path) => {
-  if (path) {
-    sort = ``;
-    type = `comics/${comicId}/${path}`;
+const fetchComicInfo = (listOf, id, path) => {
+  if (type === "comics") {
+    if (path) {
+      sort = ``;
+      type = `comics/${id}/${path}`;
+    } else {
+      type = `comics/${id}`;
+    }
   } else {
-    type = `comics/${comicId}`;
+    if (path) {
+      sort = ``;
+      type = `characters/${id}/${path}`;
+    } else {
+      type = `characters/${id}`;
+    }
   }
+
   fetchInfo(createURL());
 };
 
@@ -314,6 +334,63 @@ const displayIncludedCharacters = (comic, comicId) => {
 
 const updateAvailableCharacters = (comic) => {
   totalItems = comic.characters.available;
+  resultsNumber.textContent = totalItems;
+  showNoResultsMsg();
+};
+
+//Display Character Info
+const displayCharacterSection = () => {
+  const characterCards = document.querySelectorAll(
+    ".card--container__character"
+  );
+  characterCards.forEach((character) => {
+    character.onclick = () => {
+      characterId = character.id;
+      clearSectionContent(resultsContainer);
+      hide(resultsSection);
+      show(charactersSection);
+      fetchCharacterInfo(characterId);
+    };
+  });
+};
+
+const fetchCharacterInfo = (characterId) => {
+  type = `characters/${characterId}`;
+  fetchInfo(createURL());
+};
+
+const displayCharacterInfo = (info) => {
+  console.log(info);
+  clearSectionContent(charactersSection);
+  info.data.results.map((character) => {
+    const imgURL = `${character.thumbnail.path}.${character.thumbnail.extension}`;
+    const comics = character.comics.available
+      ? displayComicsContainingCharacter(character, character.id)
+      : updateAvailableComics(character);
+
+    return (charactersSection.innerHTML = `
+    <article class="info--container__character" id="${character.id}">
+      <div class="img--container__character">
+        <img class="thumbnail img__character" src="${imgURL}" />
+      </div>
+      <div class="info--container__character">
+      <h2 class="title__character">
+        ${character.name}
+      </h2>
+      <h3>Descripción:</h3>
+      <p>${character.description || noInfoMsg}</p>
+      </div>
+    </article>`);
+  });
+};
+
+const displayComicsContainingCharacter = (character, characterId) => {
+  show(resultsSection);
+  fetchComicInfo("characters", characterId, "comics");
+};
+
+const updateAvailableComics = (character) => {
+  totalItems = character.comics.available;
   resultsNumber.textContent = totalItems;
   showNoResultsMsg();
 };
