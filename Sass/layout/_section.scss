@@ -71,6 +71,14 @@ section {
 .results--container {
   @extend %flex-wrap;
   justify-content: center;
+  .img {
+    &__comic {
+      max-height: 270px;
+    }
+    &__character {
+      height: 178px;
+    }
+  }
 }
 
 .results--title__container {

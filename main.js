@@ -88,43 +88,41 @@ const createComicsCards = (info) => {
     return (resultsContainer.innerHTML += `
         <article class="card--container__comic" id="${comic.id}">
           <div class="img--container__comic">
-            <img class="thumbnail img__comic" src="${comic.thumbnail.path}.${comic.thumbnail.extension}" />
+            <img class="thumbnail img__comic" src="${findAndReplaceBrokenImg(
+              comic
+            )}" />
           </div>
           <h3 class="title__comic">
             ${comic.title}
           </h3>
         </article>`);
   });
-  findAndReplaceBrokenImg();
   displayComicSection();
 };
 
 const createCharactersCards = (info) => {
   clearSectionContent(resultsContainer);
   info.data.results.map((character) => {
-    return (resultsContainer.innerHTML += `<article class="card--container__character" id="${character.id}">
+    return (resultsContainer.innerHTML += `<article class="card--container__character" id="${
+      character.id
+    }">
           <div class="img--container__character">
-            <img class="thumbnail img__character" src="${character.thumbnail.path}.${character.thumbnail.extension}" />
+            <img class="thumbnail img__character" src="${findAndReplaceBrokenImg(
+              character
+            )}" />
           </div>
           <div class="title--container__character">
             <h3 class="title__character">${character.name}</h3>
           </div>
         </article>`);
   });
-  findAndReplaceBrokenImg();
   displayCharacterSection();
 };
 
-const findAndReplaceBrokenImg = () => {
-  const thumbnails = document.querySelectorAll(".thumbnail");
-  thumbnails.forEach((thumbnail) => {
-    if (
-      thumbnail.src ==
-      "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg"
-    ) {
-      thumbnail.src = "imgs/not_found.jpg";
-    }
-  });
+const findAndReplaceBrokenImg = (element) => {
+  return element.thumbnail.path.includes("image_not_available")
+    ? "imgs/not_found.jpg"
+    : `${element.thumbnail.path}.${element.thumbnail.extension}`;
 };
 
 const findResultsNumber = (info) => {
@@ -258,7 +256,7 @@ const displayComicInfo = (info) => {
   console.log(info);
   clearSectionContent(comicsSection);
   info.data.results.map((comic) => {
-    const imgURL = `${comic.thumbnail.path}.${comic.thumbnail.extension}`;
+    const imgURL = findAndReplaceBrokenImg(comic);
     const onSaleDate = findSaleDate(comic);
     const writer = creatorsListHasWriter(comic);
     const characters = comic.characters.available
@@ -348,7 +346,7 @@ const displayCharacterInfo = (info) => {
   console.log(info);
   clearSectionContent(charactersSection);
   info.data.results.map((character) => {
-    const imgURL = `${character.thumbnail.path}.${character.thumbnail.extension}`;
+    const imgURL = findAndReplaceBrokenImg(character);
     const comics = character.comics.available
       ? displayComicsContainingCharacter(character, character.id)
       : updateAvailableComics(character);

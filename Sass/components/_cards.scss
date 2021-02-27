@@ -42,7 +42,6 @@
   &__character {
     width: 100%;
     height: auto;
-    // box-shadow: 1px 2px 3px #3f344d;
   }
 }
 
@@ -51,8 +50,5 @@
   &__character {
     transform: translateY(0);
     transition: 0.3s;
-    // &:hover {
-    //   transform: translateY(-40px);
-    // }
   }
 }

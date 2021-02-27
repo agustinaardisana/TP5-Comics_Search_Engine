@@ -201,6 +201,12 @@ section {
 .results--container {
   justify-content: center;
 }
+.results--container .img__comic {
+  max-height: 270px;
+}
+.results--container .img__character {
+  height: 178px;
+}
 
 .results--title__container {
   max-width: 1000px;
