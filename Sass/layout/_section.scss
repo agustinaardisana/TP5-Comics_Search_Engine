@@ -12,10 +12,7 @@ section {
     @extend %flex-space-between;
     @extend %flex-wrap;
     @media (max-width: $breakpoint-medium-devices) {
-      justify-content: flex-start;
-    }
-    @media (max-width: $breakpoint-small-devices) {
-      display: block;
+      justify-content: center;
     }
     &__filters {
       @media (max-width: $breakpoint-extra-small-devices) {
@@ -30,6 +27,11 @@ section {
     label {
       color: $secondary-color;
     }
+    button {
+      @media (max-width: $breakpoint-small-devices) {
+        width: 100%;
+      }
+    }
   }
 }
 
@@ -41,11 +43,8 @@ section {
   width: 100%;
   max-width: 500px;
   font-size: 25px;
-  @media (max-width: $breakpoint-small-devices) {
-    max-width: 430px;
-  }
-  @media (max-width: $breakpoint-extra-small-devices) {
-    max-width: 190px;
+  @media (max-width: $breakpoint-medium-devices) {
+    max-width: none;
   }
 }
 
@@ -67,15 +66,6 @@ section {
   position: relative;
   left: 15px;
   top: 30px;
-  @media (min-width: $breakpoint-small-devices) and (max-width: $breakpoint-medium-devices) {
-    top: 0px;
-  }
-  @media (max-width: $breakpoint-small-devices) {
-    top: 30px;
-  }
-  @media (max-width: $breakpoint-extra-small-devices) {
-    top: 0px;
-  }
 }
 
 .results--container {
@@ -84,7 +74,6 @@ section {
 }
 
 .results--title__container {
-  width: 100vw;
   max-width: 1000px;
   @include margin(20px, 10px, 20px, 10px);
   p {
