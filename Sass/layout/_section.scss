@@ -7,8 +7,16 @@
   .search--container {
     @extend %flex-space-between;
     @extend %flex-wrap;
+    @media (max-width: $breakpoint-medium-devices) {
+      justify-content: flex-start;
+    }
     @media (max-width: $breakpoint-small-devices) {
       display: block;
+    }
+    &__filters {
+      @media (max-width: $breakpoint-extra-small-devices) {
+        display: flex;
+      }
     }
     & > * {
       @media (max-width: $breakpoint-medium-devices) {
@@ -33,7 +41,7 @@
     max-width: 430px;
   }
   @media (max-width: $breakpoint-extra-small-devices) {
-    max-width: 230px;
+    max-width: 190px;
   }
 }
 
@@ -47,7 +55,6 @@
 #input__search {
   @media (max-width: $breakpoint-medium-devices) {
     width: 100%;
-    //max-width: 900px;
   }
 }
 
@@ -61,6 +68,9 @@
   }
   @media (max-width: $breakpoint-small-devices) {
     top: 30px;
+  }
+  @media (max-width: $breakpoint-extra-small-devices) {
+    top: 0px;
   }
 }
 
@@ -93,9 +103,14 @@
 
 .section-comics,
 .section-characters {
+  width: 100%;
   article {
     display: flex;
     @include margin(50px, 10px, 50px, 10px);
+    @media (max-width: $breakpoint-small-devices) {
+      flex-direction: column;
+      max-width: 80%;
+    }
 
     img {
       max-width: 350px;

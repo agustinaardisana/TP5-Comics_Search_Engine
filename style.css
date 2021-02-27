@@ -50,6 +50,11 @@ footer, main, .card--container__comic, .card--container__character {
     width: calc(100% / 3 - 2 * 10px);
   }
 }
+@media (max-width: 450px) {
+  .card--container__comic, .card--container__character {
+    width: calc(100% / 2 - 2 * 10px);
+  }
+}
 @media (max-width: 350px) {
   .card--container__comic, .card--container__character {
     width: calc(100% - 2 * 10px);
@@ -129,9 +134,19 @@ main {
 .section-search h2 {
   margin: 20px 0px 20px 0px;
 }
+@media (max-width: 950px) {
+  .section-search .search--container {
+    justify-content: flex-start;
+  }
+}
 @media (max-width: 650px) {
   .section-search .search--container {
     display: block;
+  }
+}
+@media (max-width: 350px) {
+  .section-search .search--container__filters {
+    display: flex;
   }
 }
 @media (max-width: 950px) {
@@ -159,7 +174,7 @@ main {
 }
 @media (max-width: 350px) {
   #input__search {
-    max-width: 230px;
+    max-width: 190px;
   }
 }
 
@@ -192,6 +207,11 @@ main {
     top: 30px;
   }
 }
+@media (max-width: 350px) {
+  .fa-search {
+    top: 0px;
+  }
+}
 
 .results--container {
   justify-content: center;
@@ -218,10 +238,21 @@ main {
   font-size: 20px;
 }
 
+.section-comics,
+.section-characters {
+  width: 100%;
+}
 .section-comics article,
 .section-characters article {
   display: flex;
   margin: 50px 10px 50px 10px;
+}
+@media (max-width: 650px) {
+  .section-comics article,
+.section-characters article {
+    flex-direction: column;
+    max-width: 80%;
+  }
 }
 .section-comics article img,
 .section-characters article img {

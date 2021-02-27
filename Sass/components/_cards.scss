@@ -10,6 +10,9 @@
     @media (max-width: $breakpoint-small-devices) {
       width: calc(100% / 3 - 2 * 10px);
     }
+    @media (max-width: 450px) {
+      width: calc(100% / 2 - 2 * 10px);
+    }
     @media (max-width: $breakpoint-extra-small-devices) {
       width: calc(100% - 2 * 10px);
     }
