@@ -16,7 +16,7 @@ const lastPageButton = document.querySelector(".pages--button__last");
 const rightPageButton = document.querySelector(".pages--button__right");
 const leftPageButton = document.querySelector(".pages--button__left");
 
-//Other Variables
+//Global Variables
 const baseURL = "https://gateway.marvel.com/v1/public/";
 const myApiKey = "09f672ea66d3144befdf6f7fc2796c10";
 let type = "comics";
@@ -34,42 +34,53 @@ const show = (elementName) => elementName.classList.remove("hidden");
 const hide = (elementName) => elementName.classList.add("hidden");
 //
 
-const createURL = (queryParamType, queryParamSort) => {
-  queryParamType = type;
-  queryParamSort = sort;
+window.onload = () => {
+  console.log("onload");
+  fetchInfo(createURL(type, sort));
+};
 
-  url = `${baseURL + queryParamType}?apikey=${myApiKey}&offset=${
+const createURL = (paramType, paramSort, paramId, paramPath) => {
+  url = `${baseURL + paramType}?apikey=${myApiKey}&offset=${
     currentPage * itemsPerPage
-  }&orderBy=${queryParamSort}`;
+  }&orderBy=${paramSort}`;
+  if (paramId) {
+    url = `${baseURL + paramType}/${paramId}?apikey=${myApiKey}&offset=${
+      currentPage * itemsPerPage
+    }`;
+  }
+  if (paramPath) {
+    url = `${
+      baseURL + paramType
+    }/${paramId}/${paramPath}?apikey=${myApiKey}&offset=${
+      currentPage * itemsPerPage
+    }`;
+  }
   return url;
 };
-createURL();
 
-const fetchInfo = (url) => {
-  console.log(url);
+const fetchInfo = (url, id, path) => {
   fetch(url)
     .then((data) => data.json())
     .then((info) => {
       console.log(info);
-      findResultsNumber(info);
+
       if (type === "comics") {
-        createComicsCards(info);
-      } else if (type == "characters" || sort === ``) {
-        createCharactersCards(info);
-        // } else if (type == `comics/${comicId}`) {
-        //   displayComicInfo(info);
-        // } else if (type == `characters/${characterId}`) {
-        //   displayCharacterInfo(info);
-        // }
-        // } else if (comicId) {
-        //   displayComicInfo(info);
-      } else if (characterId) {
-        displayCharacterInfo(info);
+        if (path) {
+          createCharactersCards(info);
+        } else {
+          id ? displayComicInfo(info) : createComicsCards(info);
+        }
+      } else {
+        if (path) {
+          createComicsCards(info);
+        } else {
+          id ? displayCharacterInfo(info) : createCharactersCards(info);
+        }
       }
+      findResultsNumber(info);
       updatePagination();
     });
 };
-fetchInfo(url);
 
 const createComicsCards = (info) => {
   clearSectionContent(resultsContainer);
@@ -143,7 +154,6 @@ typeFilterSelect.onchange = updateSortByOptions;
 
 const updateSortAndType = () => {
   type = typeFilterSelect.value;
-
   if (type === "characters") {
     sort = sortBySelectForCharacters.value;
   } else {
@@ -173,7 +183,7 @@ const searchByInput = () => {
   }
 };
 
-const search = (type, sort) => {
+const search = () => {
   currentPage = 0;
   updateSortAndType();
   createURL(type, sort);
@@ -186,17 +196,17 @@ searchButton.onclick = search;
 rightPageButton.onclick = () => {
   currentPage++;
 
-  fetchInfo(createURL());
+  fetchInfo(createURL(type, sort));
 };
 
 leftPageButton.onclick = () => {
   currentPage--;
-  fetchInfo(createURL());
+  fetchInfo(createURL(type, sort));
 };
 
 firstPageButton.onclick = () => {
   currentPage = 0;
-  fetchInfo(createURL());
+  fetchInfo(createURL(type, sort));
 };
 
 lastPageButton.onclick = () => {
@@ -207,7 +217,7 @@ lastPageButton.onclick = () => {
   } else {
     currentPage = totalPages - 1;
   }
-  fetchInfo(createURL());
+  fetchInfo(createURL(type, sort));
 };
 
 const updatePagination = () => {
@@ -239,29 +249,9 @@ const displayComicSection = () => {
       clearSectionContent(resultsContainer);
       hide(resultsSection);
       show(comicsSection);
-      fetchComicInfo("comics", comicId);
+      fetchInfo(createURL("comics", "", comicId), comicId);
     };
   });
-};
-
-const fetchComicInfo = (listOf, id, path) => {
-  if (type === "comics") {
-    if (path) {
-      sort = ``;
-      type = `comics/${id}/${path}`;
-    } else {
-      type = `comics/${id}`;
-    }
-  } else {
-    if (path) {
-      sort = ``;
-      type = `characters/${id}/${path}`;
-    } else {
-      type = `characters/${id}`;
-    }
-  }
-
-  fetchInfo(createURL());
 };
 
 const displayComicInfo = (info) => {
@@ -329,7 +319,9 @@ const convertToLocalDate = (saleDateObj) => {
 
 const displayIncludedCharacters = (comic, comicId) => {
   show(resultsSection);
-  fetchComicInfo(comicId, "characters");
+  fetchInfo(createURL("comics", "", comicId, "characters"), "", "characters");
+
+  //fetchComicInfo(comicId, "characters");
 };
 
 const updateAvailableCharacters = (comic) => {
@@ -349,14 +341,9 @@ const displayCharacterSection = () => {
       clearSectionContent(resultsContainer);
       hide(resultsSection);
       show(charactersSection);
-      fetchCharacterInfo(characterId);
+      fetchInfo(createURL("characters", "", characterId), characterId);
     };
   });
-};
-
-const fetchCharacterInfo = (characterId) => {
-  type = `characters/${characterId}`;
-  fetchInfo(createURL());
 };
 
 const displayCharacterInfo = (info) => {
@@ -386,7 +373,9 @@ const displayCharacterInfo = (info) => {
 
 const displayComicsContainingCharacter = (character, characterId) => {
   show(resultsSection);
-  fetchComicInfo("characters", characterId, "comics");
+  fetchInfo(createURL("characters", "", characterId, "comics"), "", "comics");
+
+  //fetchComicInfo("characters", characterId, "comics");
 };
 
 const updateAvailableComics = (character) => {
