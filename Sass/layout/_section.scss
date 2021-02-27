@@ -76,8 +76,8 @@ section {
   @extend %flex-wrap;
   justify-content: center;
   .img {
-    &__comic {
-      max-height: 270px;
+    &__comic[src*="not_found"] {
+      max-height: 320px;
     }
     &__character {
       height: 178px;

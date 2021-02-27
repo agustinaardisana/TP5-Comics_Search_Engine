@@ -143,24 +143,18 @@ const showNoResultsMsg = () => {
 
 //Search and Filter Functions
 const updateSortByOptions = () => {
-  if (typeFilterSelect.value === "characters") {
-    hide(sortBySelectForComics);
-    show(sortBySelectForCharacters);
-  } else {
-    hide(sortBySelectForCharacters);
-    show(sortBySelectForComics);
-  }
+  typeFilterSelect.value === "characters"
+    ? (hide(sortBySelectForComics), show(sortBySelectForCharacters))
+    : (hide(sortBySelectForCharacters), show(sortBySelectForComics));
 };
 
 typeFilterSelect.onchange = updateSortByOptions;
 
 const updateSortAndType = () => {
   type = typeFilterSelect.value;
-  if (type === "characters") {
-    sort = sortBySelectForCharacters.value;
-  } else {
-    sort = sortBySelectForComics.value;
-  }
+  type === "characters"
+    ? (sort = sortBySelectForCharacters.value)
+    : (sort = sortBySelectForComics.value);
   return type, sort;
 };
 
@@ -217,11 +211,11 @@ firstPageButton.onclick = () => {
 lastPageButton.onclick = () => {
   const totalPages = Math.floor(totalItems / itemsPerPage);
   const lastPageItems = totalItems % itemsPerPage;
-  if (lastPageItems > 0) {
-    currentPage = totalPages;
-  } else {
-    currentPage = totalPages - 1;
-  }
+
+  lastPageItems > 0
+    ? (currentPage = totalPages)
+    : (currentPage = totalPages - 1);
+
   clearSectionContent(resultsContainer);
   fetchInfo(createURL(type, sort));
 };
@@ -229,21 +223,13 @@ lastPageButton.onclick = () => {
 const updatePagination = () => {
   let offset = currentPage * itemsPerPage;
 
-  if (offset == 0) {
-    leftPageButton.disabled = true;
-    firstPageButton.disabled = true;
-  } else {
-    leftPageButton.disabled = false;
-    firstPageButton.disabled = false;
-  }
+  offset == 0
+    ? ((leftPageButton.disabled = true), (firstPageButton.disabled = true))
+    : ((leftPageButton.disabled = false), (firstPageButton.disabled = false));
 
-  if (offset + itemsPerPage >= totalItems) {
-    rightPageButton.disabled = true;
-    lastPageButton.disabled = true;
-  } else {
-    rightPageButton.disabled = false;
-    lastPageButton.disabled = false;
-  }
+  offset + itemsPerPage >= totalItems
+    ? ((rightPageButton.disabled = true), (lastPageButton.disabled = true))
+    : ((rightPageButton.disabled = false), (lastPageButton.disabled = false));
 };
 
 //Display Comic Info
