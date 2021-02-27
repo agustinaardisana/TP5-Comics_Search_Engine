@@ -320,8 +320,6 @@ const convertToLocalDate = (saleDateObj) => {
 const displayIncludedCharacters = (comic, comicId) => {
   show(resultsSection);
   fetchInfo(createURL("comics", "", comicId, "characters"), "", "characters");
-
-  //fetchComicInfo(comicId, "characters");
 };
 
 const updateAvailableCharacters = (comic) => {
@@ -374,8 +372,6 @@ const displayCharacterInfo = (info) => {
 const displayComicsContainingCharacter = (character, characterId) => {
   show(resultsSection);
   fetchInfo(createURL("characters", "", characterId, "comics"), "", "comics");
-
-  //fetchComicInfo("characters", characterId, "comics");
 };
 
 const updateAvailableComics = (character) => {

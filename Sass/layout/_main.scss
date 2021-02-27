@@ -4,4 +4,10 @@ main {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
+
+  @media (max-width: $breakpoint-medium-devices) {
+    width: 100%;
+    max-width: 100vw;
+    @include padding(0, 10px, 0, 10px);
+  }
 }

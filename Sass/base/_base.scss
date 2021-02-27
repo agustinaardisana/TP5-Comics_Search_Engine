@@ -3,9 +3,18 @@
 
 * {
   margin: 0;
-  //   position: relative;
 }
 
 a {
   text-decoration: none;
+}
+
+h1,
+h2,
+h3 {
+  font-family: $titles-font;
+}
+
+p {
+  font-family: $text-font;
 }

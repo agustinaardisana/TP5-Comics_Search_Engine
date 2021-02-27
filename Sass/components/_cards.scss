@@ -4,6 +4,15 @@
     @extend %flex-column;
     @include margin(20px, 10px, 40px, 10px);
     width: calc(100% / 5 - 2 * 10px);
+    @media (max-width: 850px) {
+      width: calc(100% / 4 - 2 * 10px);
+    }
+    @media (max-width: $breakpoint-small-devices) {
+      width: calc(100% / 3 - 2 * 10px);
+    }
+    @media (max-width: $breakpoint-extra-small-devices) {
+      width: calc(100% - 2 * 10px);
+    }
     transform: translateY(0);
     transition: 0.3s;
     &:hover {
