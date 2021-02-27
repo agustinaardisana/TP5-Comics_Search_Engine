@@ -11,6 +11,7 @@ const sortBySelectForCharacters = document.getElementById(
 const searchButton = document.querySelector(".search__button");
 const searchBar = document.getElementById("input__search");
 const resultsNumber = document.querySelector(".results__number");
+const loader = document.querySelector(".loader--container");
 const firstPageButton = document.querySelector(".pages--button__first");
 const lastPageButton = document.querySelector(".pages--button__last");
 const rightPageButton = document.querySelector(".pages--button__right");
@@ -28,14 +29,14 @@ let url = ``;
 const noInfoMsg = `No disponible`;
 const noResultsMsg = `<p>No se han encontrado resultados</p>`;
 
-//Broad-use functions
+//Global functions
 const clearSectionContent = (sectionClass) => (sectionClass.innerHTML = "");
 const show = (elementName) => elementName.classList.remove("hidden");
 const hide = (elementName) => elementName.classList.add("hidden");
 //
 
 window.onload = () => {
-  console.log("onload");
+  show(loader);
   fetchInfo(createURL(type, sort));
 };
 
@@ -55,6 +56,8 @@ const createURL = (paramType, paramSort, paramId, paramPath) => {
       currentPage * itemsPerPage
     }`;
   }
+
+  show(loader);
   return url;
 };
 
@@ -79,6 +82,7 @@ const fetchInfo = (url, id, path) => {
       }
       findResultsNumber(info);
       updatePagination();
+      hide(loader);
     });
 };
 
@@ -182,6 +186,7 @@ const searchByInput = () => {
 };
 
 const search = () => {
+  show(loader);
   currentPage = 0;
   updateSortAndType();
   createURL(type, sort);
@@ -193,17 +198,19 @@ searchButton.onclick = search;
 //Pagination
 rightPageButton.onclick = () => {
   currentPage++;
-
+  clearSectionContent(resultsContainer);
   fetchInfo(createURL(type, sort));
 };
 
 leftPageButton.onclick = () => {
   currentPage--;
+  clearSectionContent(resultsContainer);
   fetchInfo(createURL(type, sort));
 };
 
 firstPageButton.onclick = () => {
   currentPage = 0;
+  clearSectionContent(resultsContainer);
   fetchInfo(createURL(type, sort));
 };
 
@@ -215,6 +222,7 @@ lastPageButton.onclick = () => {
   } else {
     currentPage = totalPages - 1;
   }
+  clearSectionContent(resultsContainer);
   fetchInfo(createURL(type, sort));
 };
 

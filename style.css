@@ -8,9 +8,7 @@ a {
   text-decoration: none;
 }
 
-h1,
-h2,
-h3 {
+h1, h2, h3 {
   font-family: "Rubik";
 }
 
@@ -35,39 +33,52 @@ footer, main, .card--container__comic, .card--container__character {
   justify-content: space-between;
 }
 
+.loader--container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .card--container__comic, .card--container__character {
   margin: 20px 10px 40px 10px;
   width: calc(100% / 5 - 2 * 10px);
   transform: translateY(0);
   transition: 0.3s;
 }
+
 @media (max-width: 850px) {
   .card--container__comic, .card--container__character {
     width: calc(100% / 4 - 2 * 10px);
   }
 }
+
 @media (max-width: 650px) {
   .card--container__comic, .card--container__character {
     width: calc(100% / 3 - 2 * 10px);
   }
 }
+
 @media (max-width: 450px) {
   .card--container__comic, .card--container__character {
     width: calc(100% / 2 - 2 * 10px);
   }
 }
+
 @media (max-width: 350px) {
   .card--container__comic, .card--container__character {
     width: calc(100% - 2 * 10px);
   }
 }
+
 .card--container__comic:hover, .card--container__character:hover {
   transform: translateY(-10px);
   cursor: pointer;
 }
+
 .card--container__comic:hover .img__comic, .card--container__comic:hover .img__character, .card--container__character:hover .img__comic, .card--container__character:hover .img__character {
   opacity: 0.3;
 }
+
 .card--container__comic:hover .title__comic, .card--container__comic:hover .title__character, .card--container__character:hover .title__comic, .card--container__character:hover .title__character {
   transform: translateY(-70px);
 }
@@ -96,9 +107,11 @@ button {
   border: transparent;
   padding: 15px 20px 15px 20px;
 }
+
 button:hover:not([disabled]) {
   background: linear-gradient(135deg, #ed1d24, #951e22);
 }
+
 button:disabled {
   color: #7e7e7e;
 }
@@ -120,11 +133,46 @@ main {
   max-width: 1200px;
   margin: 0 auto;
 }
+
 @media (max-width: 950px) {
   main {
     width: 100%;
     max-width: 100vw;
     padding: 0 10px 0 10px;
+  }
+}
+
+.loader--container {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.5);
+  position: relative;
+  top: 0;
+}
+
+.loader--container .loader {
+  width: 80px;
+  height: 80px;
+}
+
+.loader--container:after {
+  content: " ";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid #ed1d24;
+  border-color: #ed1d24 transparent #ed1d24;
+  animation: spinLoader 1.2s linear infinite;
+}
+
+@keyframes spinLoader {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
 
@@ -136,27 +184,40 @@ section {
 .section-search {
   width: 100%;
 }
+
 .section-search h2 {
   margin: 20px 0px 20px 0px;
 }
+
 @media (max-width: 950px) {
   .section-search .search--container {
     justify-content: center;
   }
 }
-@media (max-width: 350px) {
+
+@media (max-width: 450px) {
   .section-search .search--container__filters {
     display: flex;
+    flex-direction: column;
   }
 }
+
 @media (max-width: 950px) {
-  .section-search .search--container > * {
+  .section-search .search--container>* {
     margin: 20px 0px;
   }
 }
+
 .section-search .search--container label {
   color: #7e7e7e;
 }
+
+@media (max-width: 450px) {
+  .section-search .search--container label {
+    margin-bottom: 10px;
+  }
+}
+
 @media (max-width: 650px) {
   .section-search .search--container button {
     width: 100%;
@@ -172,6 +233,7 @@ section {
   max-width: 500px;
   font-size: 25px;
 }
+
 @media (max-width: 950px) {
   #input__search {
     max-width: none;
@@ -185,8 +247,7 @@ section {
 }
 
 @media (max-width: 950px) {
-  .search--container__input,
-#input__search {
+  .search--container__input, #input__search {
     width: 100%;
   }
 }
@@ -201,9 +262,11 @@ section {
 .results--container {
   justify-content: center;
 }
+
 .results--container .img__comic {
   max-height: 270px;
 }
+
 .results--container .img__character {
   height: 178px;
 }
@@ -212,6 +275,7 @@ section {
   max-width: 1000px;
   margin: 20px 10px 20px 10px;
 }
+
 .results--title__container p {
   padding: 15px 0px 15px 0px;
   color: #7e7e7e;
@@ -221,44 +285,41 @@ section {
 .section-pages {
   margin: 80px 0px 80px 0px;
 }
+
 .section-pages button {
   margin: 0px 10px 0px 10px;
 }
+
 .section-pages button i {
   font-size: 20px;
 }
 
-.section-comics,
-.section-characters {
+.section-comics, .section-characters {
   width: 100%;
 }
-.section-comics article,
-.section-characters article {
+
+.section-comics article, .section-characters article {
   display: flex;
   margin: 50px 10px 50px 10px;
 }
+
 @media (max-width: 650px) {
-  .section-comics article,
-.section-characters article {
+  .section-comics article, .section-characters article {
     flex-direction: column;
     max-width: 80%;
   }
 }
-.section-comics article img,
-.section-characters article img {
+
+.section-comics article img, .section-characters article img {
   max-width: 350px;
   margin: 0px 50px 0px 0px;
 }
-.section-comics article .info--container__comic,
-.section-comics article .info--container__character,
-.section-characters article .info--container__comic,
-.section-characters article .info--container__character {
+
+.section-comics article .info--container__comic, .section-comics article .info--container__character, .section-characters article .info--container__comic, .section-characters article .info--container__character {
   max-width: 550px;
 }
-.section-comics article .info--container__comic > *,
-.section-comics article .info--container__character > *,
-.section-characters article .info--container__comic > *,
-.section-characters article .info--container__character > * {
+
+.section-comics article .info--container__comic>*, .section-comics article .info--container__character>*, .section-characters article .info--container__comic>*, .section-characters article .info--container__character>* {
   margin: 10px 0px 10px 0px;
 }
 
@@ -275,12 +336,15 @@ footer {
   color: #d3d3d3;
   padding: 30px 0px 40px 0px;
 }
+
 footer a:link {
   color: #d3d3d3;
 }
+
 footer a:visited {
   color: #d3d3d3;
 }
+
 footer .footer--social i {
   margin: 15px 15px 15px 15px;
   color: #d3d3d3;

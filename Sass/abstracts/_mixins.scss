@@ -15,6 +15,12 @@
   justify-content: space-between;
 }
 
+%flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 @mixin padding($top, $right, $bottom, $left) {
   padding: $top $right $bottom $left;
 }
