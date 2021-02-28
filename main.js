@@ -214,6 +214,12 @@ firstPageButton.onclick = () => {
 
 lastPageButton.onclick = () => {
   show(loader);
+  findLastPage();
+  clearSectionContent(resultsContainer);
+  fetchInfo(createURL(type, sort));
+};
+
+const findLastPage = () => {
   const totalPages = Math.floor(totalItems / itemsPerPage);
   const lastPageItems = totalItems % itemsPerPage;
 
@@ -221,8 +227,7 @@ lastPageButton.onclick = () => {
     ? (currentPage = totalPages)
     : (currentPage = totalPages - 1);
 
-  clearSectionContent(resultsContainer);
-  fetchInfo(createURL(type, sort));
+  return currentPage;
 };
 
 const updatePagination = () => {
