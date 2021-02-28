@@ -1,18 +1,22 @@
 //DOM variables
-const resultsContainer = document.querySelector(".results--container");
-const resultsSection = document.querySelector(".section-results");
-const comicsSection = document.querySelector(".section-comics");
-const charactersSection = document.querySelector(".section-characters");
+const darkModeButton = document.querySelector(".darkmode--togle__button");
+const darkModeSpans = document.querySelectorAll(
+  ".darkmode--togle__button > span"
+);
+const searchButton = document.querySelector(".search__button");
+const searchBar = document.getElementById("input__search");
 const typeFilterSelect = document.getElementById("type__filter");
 const sortBySelectForComics = document.getElementById("sortby--filter__comics");
 const sortBySelectForCharacters = document.getElementById(
   "sortby--filter__characters"
 );
-const searchButton = document.querySelector(".search__button");
-const searchBar = document.getElementById("input__search");
 const resultsTitle = document.querySelector(".results__title");
 const resultsNumber = document.querySelector(".results__number");
 const loader = document.querySelector(".loader--container");
+const resultsContainer = document.querySelector(".results--container");
+const resultsSection = document.querySelector(".section-results");
+const comicsSection = document.querySelector(".section-comics");
+const charactersSection = document.querySelector(".section-characters");
 const firstPageButton = document.querySelector(".pages--button__first");
 const lastPageButton = document.querySelector(".pages--button__last");
 const rightPageButton = document.querySelector(".pages--button__right");
@@ -92,7 +96,7 @@ const createComicsCards = (info) => {
           <div class="img--container__comic">
             <img class="thumbnail img__comic" src="${findAndReplaceBrokenImg(
               comic
-            )}" />
+            )}" alt="foto del cover"/>
           </div>
           <h3 class="title__comic">
             ${comic.title}
@@ -113,7 +117,7 @@ const createCharactersCards = (info) => {
           <div class="img--container__character">
             <img class="thumbnail img__character" src="${findAndReplaceBrokenImg(
               character
-            )}" />
+            )}" alt="foto del personaje"/>
           </div>
           <div class="title--container__character">
             <h3 class="title__character">${character.name}</h3>
@@ -273,7 +277,7 @@ const displayComicInfo = (info) => {
     return (comicsSection.innerHTML = `
     <article class="info--container__comic" id="${comic.id}">
       <div class="img--container__comic">
-        <img class="thumbnail img__comic" src="${imgURL}" />
+        <img class="thumbnail img__comic" src="${imgURL}" alt="foto del comic"/>
       </div>
       <div class="info--container__comic">
       <h2 class="title__comic">
@@ -365,7 +369,7 @@ const displayCharacterInfo = (info) => {
     return (charactersSection.innerHTML = `
     <article class="info--container__character" id="${character.id}">
       <div class="img--container__character">
-        <img class="thumbnail img__character" src="${imgURL}" />
+        <img class="thumbnail img__character" src="${imgURL}" alt="foto del personaje"/>
       </div>
       <div class="info--container__character">
       <h2 class="title__character">
@@ -388,4 +392,12 @@ const updateAvailableComics = (character) => {
   totalItems = character.comics.available;
   resultsNumber.textContent = totalItems;
   showNoResultsMsg();
+};
+
+//Dark Mode
+darkModeButton.onclick = () => {
+  document.body.classList.toggle("dark-mode");
+  darkModeSpans.forEach((span) => {
+    span.classList.toggle("hidden");
+  });
 };

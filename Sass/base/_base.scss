@@ -6,6 +6,28 @@
   box-sizing: border-box;
 }
 
+.dark-mode {
+  //Este mixin debe ir acá porque tira error cuando lo muevo al archivo _mixins.scss
+  @mixin theme-colors($dark-mode: true) {
+    @if $dark-mode {
+      background-color: $main-color;
+      color: $light-color;
+      button:not(.darkmode--togle__button) {
+        color: $main-color;
+        background-color: $contrast-color;
+      }
+      #input__search {
+        border-bottom: 2px solid $light-color;
+      }
+    } @else {
+      background-color: $light-color;
+      color: $main-color;
+    }
+  }
+  /////////////////////////////////////////
+  @include theme-colors($dark-mode: true);
+}
+
 a {
   text-decoration: none;
 }

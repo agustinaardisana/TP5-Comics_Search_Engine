@@ -1,5 +1,22 @@
 header {
-  height: 400px;
+  height: 500px;
+
+  .title--container {
+    @include padding(5px, 20px, 5px, 20px);
+    @extend %flex-space-between;
+    background-color: $main-color;
+
+    h1 {
+      font-family: $main-title-font;
+      background-clip: unset;
+      background: -webkit-linear-gradient(
+        $success-main-color,
+        $success-secondary-color
+      );
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
 }
 
 .banner {
