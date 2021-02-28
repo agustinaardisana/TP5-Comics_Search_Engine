@@ -64,7 +64,7 @@ const fetchInfo = (url, id, path) => {
   fetch(url)
     .then((data) => data.json())
     .then((info) => {
-      console.log(info);
+      console.log(info, url, type, id, path);
 
       if (type === "comics") {
         if (path) {
@@ -246,7 +246,9 @@ const displayComicSection = () => {
       clearSectionContent(resultsContainer);
       hide(resultsSection);
       show(comicsSection);
+      type = "comics";
       fetchInfo(createURL("comics", "", comicId), comicId);
+      hide(charactersSection);
     };
   });
 };
@@ -338,7 +340,9 @@ const displayCharacterSection = () => {
       clearSectionContent(resultsContainer);
       hide(resultsSection);
       show(charactersSection);
-      fetchInfo(createURL("characters", "", characterId), characterId);
+      type = "characters";
+      fetchInfo(createURL("characters", "", characterId, ""), characterId);
+      hide(comicsSection);
     };
   });
 };
