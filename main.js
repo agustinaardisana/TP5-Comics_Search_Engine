@@ -10,6 +10,7 @@ const sortBySelectForCharacters = document.getElementById(
 );
 const searchButton = document.querySelector(".search__button");
 const searchBar = document.getElementById("input__search");
+const resultsTitle = document.querySelector(".results__title");
 const resultsNumber = document.querySelector(".results__number");
 const loader = document.querySelector(".loader--container");
 const firstPageButton = document.querySelector(".pages--button__first");
@@ -56,8 +57,6 @@ const createURL = (paramType, paramSort, paramId, paramPath) => {
       currentPage * itemsPerPage
     }`;
   }
-
-  show(loader);
   return url;
 };
 
@@ -80,7 +79,6 @@ const fetchInfo = (url, id, path) => {
           id ? displayCharacterInfo(info) : createCharactersCards(info);
         }
       }
-      findResultsNumber(info);
       updatePagination();
       hide(loader);
     });
@@ -102,9 +100,11 @@ const createComicsCards = (info) => {
         </article>`);
   });
   displayComicSection();
+  findResultsNumber(info);
 };
 
 const createCharactersCards = (info) => {
+  show(loader);
   clearSectionContent(resultsContainer);
   info.data.results.map((character) => {
     return (resultsContainer.innerHTML += `<article class="card--container__character" id="${
@@ -121,6 +121,7 @@ const createCharactersCards = (info) => {
         </article>`);
   });
   displayCharacterSection();
+  findResultsNumber(info);
 };
 
 const findAndReplaceBrokenImg = (element) => {
@@ -191,24 +192,28 @@ searchButton.onclick = search;
 
 //Pagination
 rightPageButton.onclick = () => {
+  show(loader);
   currentPage++;
   clearSectionContent(resultsContainer);
   fetchInfo(createURL(type, sort));
 };
 
 leftPageButton.onclick = () => {
+  show(loader);
   currentPage--;
   clearSectionContent(resultsContainer);
   fetchInfo(createURL(type, sort));
 };
 
 firstPageButton.onclick = () => {
+  show(loader);
   currentPage = 0;
   clearSectionContent(resultsContainer);
   fetchInfo(createURL(type, sort));
 };
 
 lastPageButton.onclick = () => {
+  show(loader);
   const totalPages = Math.floor(totalItems / itemsPerPage);
   const lastPageItems = totalItems % itemsPerPage;
 
@@ -253,6 +258,7 @@ const displayComicInfo = (info) => {
     const imgURL = findAndReplaceBrokenImg(comic);
     const onSaleDate = findSaleDate(comic);
     const writer = creatorsListHasWriter(comic);
+    resultsTitle.textContent = `Personajes`;
     const characters = comic.characters.available
       ? displayIncludedCharacters(comic, comic.id)
       : updateAvailableCharacters(comic);
@@ -310,6 +316,7 @@ const convertToLocalDate = (saleDateObj) => {
 };
 
 const displayIncludedCharacters = (comic, comicId) => {
+  show(loader);
   show(resultsSection);
   fetchInfo(createURL("comics", "", comicId, "characters"), "", "characters");
 };
@@ -341,6 +348,7 @@ const displayCharacterInfo = (info) => {
   clearSectionContent(charactersSection);
   info.data.results.map((character) => {
     const imgURL = findAndReplaceBrokenImg(character);
+    resultsTitle.textContent = `Comics`;
     const comics = character.comics.available
       ? displayComicsContainingCharacter(character, character.id)
       : updateAvailableComics(character);
@@ -362,6 +370,7 @@ const displayCharacterInfo = (info) => {
 };
 
 const displayComicsContainingCharacter = (character, characterId) => {
+  show(loader);
   show(resultsSection);
   fetchInfo(createURL("characters", "", characterId, "comics"), "", "comics");
 };
