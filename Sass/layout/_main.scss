@@ -1,20 +1,20 @@
 main {
   @include margin(50px, 10px, 0, 10px);
   @extend %flex-column;
-  width: 100%;
+  width: $full-size;
   max-width: 1200px;
   margin: 0 auto;
 
   @media (max-width: $breakpoint-medium-devices) {
-    width: 100%;
+    width: $full-size;
     max-width: 100vw;
     @include padding(0, 10px, 0, 10px);
   }
 }
 
 .loader--container {
-  width: 100%;
-  height: 100%;
+  width: $full-size;
+  height: $full-size;
   background-color: rgba(255, 255, 255, 0.5);
   position: fixed;
   z-index: 1;
@@ -33,7 +33,7 @@ main {
     width: 64px;
     height: 64px;
     margin: 8px;
-    border-radius: 50%;
+    border-radius: calc(#{$full-size} / 2); //50%
     border: 6px solid $success-main-color;
     border-color: $success-main-color transparent $success-main-color;
     animation: spinLoader 1.2s linear infinite;

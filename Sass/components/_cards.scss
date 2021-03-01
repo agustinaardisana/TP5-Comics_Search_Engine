@@ -40,7 +40,7 @@
 .img {
   &__comic,
   &__character {
-    width: 100%;
+    width: $full-size;
     height: auto;
   }
 }

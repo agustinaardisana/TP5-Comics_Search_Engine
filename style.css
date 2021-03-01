@@ -1,5 +1,28 @@
 @import url("https://fonts.googleapis.com/css2?family=Karla&family=Rubik&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Bangers&display=swap");
+footer, main, .card--container__comic, .card--container__character {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.results--container, .section-search .search--container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.section-search .search--container, header .title--container {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.loader--container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 * {
   margin: 0;
   box-sizing: border-box;
@@ -182,7 +205,7 @@ main {
   width: 64px;
   height: 64px;
   margin: 8px;
-  border-radius: 50%;
+  border-radius: calc(100% / 2);
   border: 6px solid #ed1d24;
   border-color: #ed1d24 transparent #ed1d24;
   animation: spinLoader 1.2s linear infinite;
@@ -298,6 +321,11 @@ section {
 .section-pages button {
   margin: 0px 10px 0px 10px;
 }
+@media (max-width: 350px) {
+  .section-pages button {
+    margin: 0;
+  }
+}
 .section-pages button i {
   font-size: 20px;
 }
@@ -348,6 +376,11 @@ footer {
   background: linear-gradient(135deg, #ed1d24, #951e22);
   color: #d3d3d3;
   padding: 30px 0px 40px 0px;
+}
+@media (max-width: 350px) {
+  footer p {
+    text-align: center;
+  }
 }
 footer a:link {
   color: #d3d3d3;

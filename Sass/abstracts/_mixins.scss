@@ -28,3 +28,20 @@
 @mixin margin($top, $right, $bottom, $left) {
   margin: $top $right $bottom $left;
 }
+
+@mixin theme-colors($dark-mode: true) {
+  @if $dark-mode {
+    background-color: $main-color;
+    color: $light-color;
+    button:not(.darkmode--togle__button) {
+      color: $main-color;
+      background-color: $contrast-color;
+    }
+    #input__search {
+      border-bottom: 2px solid $light-color;
+    }
+  } @else {
+    background-color: $light-color;
+    color: $main-color;
+  }
+}
