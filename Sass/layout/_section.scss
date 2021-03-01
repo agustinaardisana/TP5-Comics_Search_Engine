@@ -14,23 +14,27 @@ section {
     @media (max-width: $breakpoint-medium-devices) {
       justify-content: center;
     }
+
     &__filters {
       @media (max-width: 450px) {
         display: flex;
         flex-direction: column;
       }
     }
+
     & > * {
       @media (max-width: $breakpoint-medium-devices) {
         margin: 20px 0px;
       }
     }
+
     label {
       color: $secondary-color;
       @media (max-width: 450px) {
         margin-bottom: 10px;
       }
     }
+
     button {
       @media (max-width: $breakpoint-small-devices) {
         width: $full-size;
@@ -75,10 +79,12 @@ section {
 .results--container {
   @extend %flex-wrap;
   justify-content: center;
+
   .img {
     &__comic[src*="not_found"] {
       max-height: 320px;
     }
+
     &__character {
       height: 178px;
     }
@@ -88,6 +94,7 @@ section {
 .results--title__container {
   max-width: 1000px;
   @include margin(20px, 10px, 20px, 10px);
+
   p {
     @include padding(15px, 0px, 15px, 0px);
     color: $secondary-color;
@@ -103,6 +110,7 @@ section {
     @media (max-width: $breakpoint-extra-small-devices) {
       margin: 0;
     }
+
     i {
       font-size: 20px;
     }
@@ -112,6 +120,7 @@ section {
 .section-comics,
 .section-characters {
   width: $full-size;
+
   article {
     display: flex;
     @include margin(50px, 10px, 50px, 10px);

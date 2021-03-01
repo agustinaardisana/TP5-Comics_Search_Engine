@@ -18,15 +18,18 @@
     }
     transform: translateY(0);
     transition: 0.3s;
+
     &:hover {
       transform: translateY(-10px);
       cursor: pointer;
+
       .img {
         &__comic,
         &__character {
           opacity: 0.3;
         }
       }
+
       .title {
         &__comic,
         &__character {

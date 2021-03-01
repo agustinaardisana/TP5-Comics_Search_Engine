@@ -44,7 +44,6 @@ a {
   text-decoration: none;
 }
 
-h1,
 h2,
 h3 {
   font-family: "Rubik";
@@ -163,6 +162,7 @@ header .title--container h1 {
   background: -webkit-linear-gradient(#ed1d24, #951e22);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  width: 50%;
 }
 
 .banner {
