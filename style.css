@@ -329,6 +329,10 @@ section {
 .section-pages button i {
   font-size: 20px;
 }
+.section-pages p {
+  text-align: center;
+  padding: 20px;
+}
 
 .section-comics,
 .section-characters {

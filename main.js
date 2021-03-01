@@ -22,6 +22,8 @@ const firstPageButton = document.querySelector(".pages--button__first");
 const lastPageButton = document.querySelector(".pages--button__last");
 const rightPageButton = document.querySelector(".pages--button__right");
 const leftPageButton = document.querySelector(".pages--button__left");
+const currentPageSpan = document.querySelector(".current-page");
+const totalPagesSpan = document.querySelector(".total-pages");
 
 //Global Variables
 const baseURL = "https://gateway.marvel.com/v1/public/";
@@ -34,6 +36,7 @@ let currentPage = 0;
 let url = ``;
 const noInfoMsg = `No disponible`;
 const noResultsMsg = `<p>No se han encontrado resultados</p>`;
+let totalPages = 0;
 
 //Global functions
 const clearSectionContent = (sectionClass) => (sectionClass.innerHTML = "");
@@ -230,10 +233,13 @@ const findLastPage = () => {
     ? (currentPage = totalPages)
     : (currentPage = totalPages - 1);
 
-  return currentPage;
+  return currentPage, totalPages;
 };
 
 const updatePagination = () => {
+  totalPagesSpan.textContent = `${Math.floor(totalItems / itemsPerPage) + 1}`;
+  currentPageSpan.textContent = `${currentPage + 1}`;
+
   let offset = currentPage * itemsPerPage;
 
   offset == 0
