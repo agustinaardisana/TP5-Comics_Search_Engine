@@ -220,7 +220,7 @@ section {
 }
 @media (max-width: 950px) {
   .section-search .search--container > * {
-    margin: 20px 0px;
+    margin: 20px 10px;
   }
 }
 .section-search .search--container label {

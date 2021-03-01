@@ -4,6 +4,7 @@ const darkModeSpans = document.querySelectorAll(
   ".darkmode--togle__button > span"
 );
 const searchButton = document.querySelector(".search__button");
+const returnButton = document.querySelector(".return__button");
 const searchBar = document.getElementById("input__search");
 const typeFilterSelect = document.getElementById("type__filter");
 const sortBySelectForComics = document.getElementById("sortby--filter__comics");
@@ -68,8 +69,6 @@ const fetchInfo = (url, id, path) => {
   fetch(url)
     .then((data) => data.json())
     .then((info) => {
-      console.log(info, url, type, id, path);
-
       if (type === "comics") {
         if (path) {
           createCharactersCards(info);
@@ -258,12 +257,12 @@ const displayComicSection = () => {
       type = "comics";
       fetchInfo(createURL("comics", "", comicId), comicId);
       hide(charactersSection);
+      show(returnButton);
     };
   });
 };
 
 const displayComicInfo = (info) => {
-  console.log(info);
   clearSectionContent(comicsSection);
   info.data.results.map((comic) => {
     const imgURL = findAndReplaceBrokenImg(comic);
@@ -352,12 +351,12 @@ const displayCharacterSection = () => {
       type = "characters";
       fetchInfo(createURL("characters", "", characterId, ""), characterId);
       hide(comicsSection);
+      show(returnButton);
     };
   });
 };
 
 const displayCharacterInfo = (info) => {
-  console.log(info);
   clearSectionContent(charactersSection);
   info.data.results.map((character) => {
     const imgURL = findAndReplaceBrokenImg(character);
@@ -400,4 +399,19 @@ darkModeButton.onclick = () => {
   darkModeSpans.forEach((span) => {
     span.classList.toggle("hidden");
   });
+};
+
+//Return function
+returnButton.onclick = () => {
+  hide(charactersSection);
+  hide(comicsSection);
+  hide(returnButton);
+
+  type !== typeFilterSelect.value
+    ? typeFilterSelect.value == "characters"
+      ? fetchInfo(
+          createURL(typeFilterSelect.value, sortBySelectForCharacters.value)
+        )
+      : fetchInfo(createURL("comics", sortBySelectForComics.value))
+    : fetchInfo(createURL(type, sort));
 };
