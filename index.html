@@ -17,7 +17,11 @@
         <h1>ADA COMICS</h1>
         <button type="button" class="darkmode--togle__button">
           <span aria-label="Modo claro"
-            ><i class="far fa-lightbulb" aria-hidden="true"></i
+
+         <!-- Privilegia el auto-cerrado de estas etiquetas, 
+            asi: <i class="far fa-lightbulb" aria-hidden="true"/> -->
+          
+          ><i class="far fa-lightbulb" aria-hidden="true"></i
           ></span>
           <span class="hidden" aria-label="Modo oscuro"
             ><i class="far fa-moon" aria-hidden="true"></i
@@ -30,6 +34,9 @@
       <section class="section-search">
         <h2 class="title__search">Búsqueda</h2>
         <div class="search--container">
+          <!-- Si toda esta seccion estuviera rodeada de un form tendriamos dos ventajas:
+          mayor accesibilidad, y la posibilidad de buscar al apretar enter en el input.
+          En ese caso, deberiamos manejar el submit del form con un preventDefault -->
           <div class="search--container__input">
             <label for="input__search" aria-label="Buscar">
               <i class="fas fa-search" aria-hidden="true"></i>
