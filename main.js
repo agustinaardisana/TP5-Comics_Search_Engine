@@ -28,17 +28,25 @@ const totalPagesSpan = document.querySelector(".total-pages");
 //Global Variables
 const baseURL = "https://gateway.marvel.com/v1/public/";
 const myApiKey = "09f672ea66d3144befdf6f7fc2796c10";
+
+// Quiza los dos siguientes nombres podrian ser mas claros: "typeSelected",
+// "typeToShow", "sortBy".
 let type = "comics";
 let sort = "title";
 const itemsPerPage = 20;
 let totalItems = 0;
 let currentPage = 0;
+// Privilegiamos usar comillas simples '' o dobles "" para strings que no tienen 
+// variables dentro. Como guia, preferimos usar siempre el mismo estilo: o siempre simples, 
+// o siempre dobles. 
 let url = ``;
 const noInfoMsg = `No disponible`;
 const noResultsMsg = `<p>No se han encontrado resultados</p>`;
 let totalPages = 0;
 
 //Global functions
+
+// Excelentes estas funciones
 const clearSectionContent = (sectionClass) => (sectionClass.innerHTML = "");
 const show = (elementName) => elementName.classList.remove("hidden");
 const hide = (elementName) => elementName.classList.add("hidden");
@@ -139,7 +147,16 @@ const findAndReplaceBrokenImg = (element) => {
 const findResultsNumber = (info) => {
   totalItems = info.data.total;
   resultsNumber.textContent = totalItems;
+  // podriamos reescribir este codigo asi:
+  // return totalItems ? totalItems : showNoResultsMsg();
+  // return totalItems || showNoResultsMsg();
   return totalItems != 0 ? totalItems : showNoResultsMsg();
+  // pero como showNoResultsMsg no retorna ningun valor, solo
+  // toma una accion, yo preferiria no retornarlo. 
+  // Podriamos pensar algo asi:
+    // !totalItems && showNoResultsMsg()
+    // return totalItems
+  // asi esta funcion siempre retorna algo (y no undefined como ahora)
 };
 
 const showNoResultsMsg = () => {
@@ -155,6 +172,8 @@ const updateSortByOptions = () => {
     : (hide(sortBySelectForCharacters), show(sortBySelectForComics));
 };
 
+// Quiza seria mas claro si agrupamos por un lado todas las funciones auxiliares de filtros
+// y search, y por otro lado todas las acciones de filter y search como esta y onclick
 typeFilterSelect.onchange = updateSortByOptions;
 
 const updateSortAndType = () => {
@@ -165,6 +184,13 @@ const updateSortAndType = () => {
   return type, sort;
 };
 
+// deberiamos retornar explicitamente un false,
+//  no dejar que se retorne undefined en caso negativo
+// Podriamos mejorar el codigo asi:
+// const thereIsInput = () => {
+//   return Boolean(searchBar.value)
+// };
+// que retorna true si el string tiene contenido, y false en caso contrario
 const thereIsInput = () => {
   if (searchBar.value) {
     return true;
@@ -261,6 +287,8 @@ const displayComicSection = () => {
       hide(resultsSection);
       show(comicsSection);
       type = "comics";
+      // la funcion espera recibir tres parametros, url id y path. Aqui no necesitas path. 
+      // En lugar de no definirlo, es preferible pasarlo explicitamente como null
       fetchInfo(createURL("comics", "", comicId), comicId);
       hide(charactersSection);
       show(returnButton);
@@ -275,6 +303,8 @@ const displayComicInfo = (info) => {
     const onSaleDate = findSaleDate(comic);
     const writer = creatorsListHasWriter(comic);
     resultsTitle.textContent = `Personajes`;
+    // No necesitas declarar la variable characters aca, 
+    // podes usar el ternario solo
     const characters = comic.characters.available
       ? displayIncludedCharacters(comic, comic.id)
       : updateAvailableCharacters(comic);
@@ -303,6 +333,7 @@ const creatorsListHasWriter = (comic) => {
   const creatorsList = comic.creators.items;
   const hasWriter = creatorsList.some((creator) => creator.role == "writer");
 
+  // preferible usar return creatorsList.length && hasWriter
   return creatorsList.length > 0 && hasWriter
     ? findWriterName(creatorsList)
     : noInfoMsg;
@@ -367,6 +398,7 @@ const displayCharacterInfo = (info) => {
   info.data.results.map((character) => {
     const imgURL = findAndReplaceBrokenImg(character);
     resultsTitle.textContent = `Comics`;
+    // no necesitas declarar comics aqui
     const comics = character.comics.available
       ? displayComicsContainingCharacter(character, character.id)
       : updateAvailableComics(character);
@@ -408,7 +440,9 @@ darkModeButton.onclick = () => {
 };
 
 //Return function
+// goBack es mas claro que return, que se puede confundir con la funcionalidad de JS
 returnButton.onclick = () => {
+  console.log("return")
   hide(charactersSection);
   hide(comicsSection);
   hide(returnButton);
